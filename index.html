@@ -280,13 +280,91 @@
     // 1. 일정 데이터 (기린 맥주 공장 15:10 포함 완벽 구성)
     const SCHEDULE_DATA = [
       // DAY 1 (10/23 금)
-      { day: 'DAY1', time: '09:25', title: '추부국제공항 도착 및 입국 수속', desc: '뮤스카이 탑승 ➔ 사카에역 이동', tag: '교통', type: 'transit', query: 'Chubu Centrair International Airport' },
-      { day: 'DAY1', time: '11:30', title: '코코호텔 나고야 사카에 짐 보관', desc: '프런트 캐리어 Drop 후 점심 출발', tag: '체크인', type: 'etc', query: 'KOKO HOTEL Nagoya Sakae' },
-      { day: 'DAY1', time: '12:00', title: '야바톤 야바초 본점', desc: '철판 미소카츠 정식 (도보 이동)', tag: '식사', type: 'food', query: 'Yabaton Honten Nagoya' },
-      { day: 'DAY1', time: '14:20', title: '비와지마역 이동 (기린 셔틀 탑승)', desc: 'JR/메이테츠 이용 ➔ 역 앞 무료 셔틀버스', tag: '교통', type: 'transit', query: 'Biwajima Station' },
-      { day: 'DAY1', time: '15:10', title: '기린 맥주공장 견학 & 시음', desc: '★예약확정 [ID: 88560]★ 맥주 3종 비교 시음', tag: '투어', type: 'food', query: 'Kirin Brewery Nagoya' },
-      { day: 'DAY1', time: '18:30', title: '야키니쿠 진 (사카에 로컬)', desc: '숯불 와규 갈비, 우설 & 나마비루 만찬', tag: '식사', type: 'food', query: 'Yakiniku Jin Sakae Nagoya' },
-
+      { 
+        day: 'DAY1', 
+        time: '09:25', 
+        title: '추부공항 도착 & 입국 심사', 
+        desc: '게이트 통과 시간에 따라 점심 Plan A / B 선택', 
+        tag: '입국', 
+        type: 'transit', 
+        query: 'Chubu Centrair International Airport',
+        planToggle: {
+          title: '🔄 11:30 기준 점심 선택 (A:공항야바톤 vs B:시내직행)',
+          planA: '🟢 Plan A (11:30 이전 통과 시): 4층 스카이타운 [야바톤 공항점] 직행! 대기 없이 철판 히레카츠 정식 여유롭게 식사 (12:30 전후 뮤스카이 탑승)',
+          planB: '🟠 Plan B (11:30 이후 지연 시): 공항 식사 패스! 편의점 간식 사들고 뮤스카이 바로 탑승 ➔ 호텔 짐 맡기고 사카에 로컬 런치',
+          jpCard: {
+            to: '야바톤 주문 시 (안심 2인분)',
+            jp: '鉄板ひれとんかつ定食をふたつお願いします。',
+            read: '텦판 히레통카츠 테-쇼쿠오 후타츠 오네가이시마스'
+          }
+        }
+      },
+      { 
+        day: 'DAY1', 
+        time: '11:40', 
+        title: '나고야역 이동 (뮤스카이 특급)', 
+        desc: '15~20분 간격 배차 · 가장 빠른 열차 탑승 (28분 소요)', 
+        tag: '교통', 
+        type: 'transit', 
+        query: 'Meitetsu Nagoya Station',
+        taxiHelp: {
+          to: '메이테츠 매표 창구 (뮤스카이 2인 발권)',
+          jp: '名古屋までのミュースカイ、大人2枚お願いします。',
+          read: '나고야마데노 뮤-스카이, 오토나 니마이 오네가이시마스'
+        },
+        transitDetail: '티켓은 2장(승차권+뮤티켓). 개찰구엔 둘 다 넣고, 좌석 앞 티켓 꽂이에 꽂아두면 검표 패스! 나고야역 하차 후 노란색 지하철(히가시야마선) 따라 환승 (2정거장 ➔ 사카에역).'
+      },
+      { 
+        day: 'DAY1', 
+        time: '12:40', 
+        title: '코코호텔 도착 (짐 보관)', 
+        desc: '사카에역 1/2번 출구 도보 3분 · 체크인 전 캐리어 무료 보관', 
+        tag: '호텔', 
+        type: 'etc', 
+        query: 'KOKO HOTEL Nagoya Sakae',
+        taxiHelp: {
+          to: '호텔 프런트 (체크인 전 짐 맡기기)',
+          jp: 'チェックイン前ですが、荷物を預かっていただけますか？',
+          read: '체크인 마에데스가, 니모츠오 아즈캇테 이타다케마스카?'
+        }
+      },
+      { 
+        day: 'DAY1', 
+        time: '14:20', 
+        title: '🚨 [마지노선] 기린공장 출발', 
+        desc: '사카에 ➔ 나고야역 ➔ JR 비와지마역(14:40) ➔ 14:50 셔틀 탑승', 
+        tag: '출발', 
+        type: 'transit', 
+        query: 'Biwajima Station' 
+      },
+      { 
+        day: 'DAY1', 
+        time: '15:10', 
+        title: '기린 맥주공장 견학 & 시음', 
+        desc: '★예약확정 [ID: 88560]★ 신선한 맥주 3종 비교 시음 (80분)', 
+        tag: '투어', 
+        type: 'food', 
+        query: 'Kirin Brewery Nagoya' 
+      },
+      { 
+        day: 'DAY1', 
+        time: '17:30', 
+        title: '호텔 복귀 & 체크인 (휴식 타임)', 
+        desc: '정식 체크인 후 방 배정 · 세수하고 짐 풀며 40분 꿀휴식', 
+        tag: '체크인', 
+        type: 'etc', 
+        query: 'KOKO HOTEL Nagoya Sakae' 
+      },
+      { 
+        day: 'DAY1', 
+        time: '18:30', 
+        title: '사카에 쇼핑 & 야키니쿠 진', 
+        desc: '호텔 앞 사카에 거리 구경 ➔ 숯불 와규 갈비, 우설 & 나마비루 저녁', 
+        tag: '식사', 
+        type: 'food', 
+        query: 'Yakiniku Jin Sakae Nagoya' 
+      },
+      
       // DAY 2 (10/24 토)
       { day: 'DAY2', time: '09:00', title: '코메다 커피 사카에', desc: '나고야 모닝 토스트 세트 & 모닝커피', tag: '카페', type: 'etc', query: 'Komeda Coffee Sakae Nagoya' },
       { day: 'DAY2', time: '11:00', title: '우나기 후지타 (사카에 로드숍)', desc: '바삭하게 구운 나고야 전통 히츠마부시', tag: '식사', type: 'food', query: 'Unagi Fujita Nagoya Sakae' },
@@ -430,6 +508,27 @@
             </a>
           </div>
         `;
+
+        // 1-1. 1일차 11:30 기준 Plan A / B 토글 박스
+        if (item.planToggle) {
+          cardHtml += `
+            <div class="border-t border-appBorder/60 pt-2">
+              <button onclick="document.getElementById('plan-box-${idx}').classList.toggle('hidden')" 
+                      class="text-[11px] font-bold text-foodFill flex items-center gap-1 active:opacity-70">
+                ${item.planToggle.title} ▾
+              </button>
+              <div id="plan-box-${idx}" class="hidden mt-2 p-2.5 bg-foodTint/50 border border-foodFill/20 rounded-xl flex flex-col gap-2 text-xs">
+                <div class="text-[#1A1D20] leading-snug break-keep">${item.planToggle.planA}</div>
+                <div class="text-[#5B646D] leading-snug break-keep">${item.planToggle.planB}</div>
+                <div class="bg-white p-2 rounded-lg border border-foodFill/20 mt-1">
+                  <div class="text-[10px] text-foodFill font-bold uppercase">${item.planToggle.jpCard.to}</div>
+                  <div class="text-sm font-bold text-[#1A1D20] mt-0.5">${item.planToggle.jpCard.jp}</div>
+                  <div class="text-[10px] text-[#5B646D] mt-0.5">발음: "${item.planToggle.jpCard.read}"</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
 
         // 2. 택시 기사님용 일본어 토글 박스
         if (item.taxiHelp) {
