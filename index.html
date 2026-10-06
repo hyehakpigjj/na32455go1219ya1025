@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Nagoya Budget Pocket</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      /* Base */
+      --bg:             #F7F8F6;
+      --surface:        #FFFFFF;
+      --surface-sunken: #F0F2EF;
+      --border:         #E6E8E4;
+      --shadow-card:    0 1px 2px rgba(26,29,32,.04), 0 4px 12px rgba(26,29,32,.04);
+
+      /* Text */
+      --text:           #1A1D20;
+      --text-2:         #5B646D;
+      --text-3:         #8B939B;
+
+      /* 가용 쇼핑 예산 - Sage Green */
+      --budget-fill:    #3FA37A;
+      --budget-text:    #0B6B45;
+      --budget-tint:    #E7F4EC;
+
+      /* 메인 미식 - Terracotta */
+      --food-fill:      #CC7050;
+      --food-text:      #94401F;
+      --food-tint:      #FAEEE7;
+
+      /* 교통/필수 - Dusty Blue */
+      --transit-fill:   #5B87C9;
+      --transit-text:   #2B5391;
+      --transit-tint:   #EAF0FA;
+
+      /* 기타/카페/쇼핑 - Neutral */
+      --etc-fill:       #9AA1A9;
+      --etc-text:       #4A525A;
+      --etc-tint:       #EEF0F2;
+
+      /* 상태 알림 */
+      --warn-fill:      #E2A93B;
+      --warn-text:      #7F5300;
+      --warn-tint:      #FBF3DE;
+      --danger-fill:    #C8465A;
+      --danger-text:    #A3283D;
+      --danger-tint:    #FBEAED;
+
+      /* Shape */
+      --radius-card:    16px;
+      --radius-chip:    999px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111315; --surface: #1B1E21; --surface-sunken: #15181A;
+        --border: #2A2E32; --shadow-card: none;
+        --text: #ECEEF0; --text-2: #A3ABB3; --text-3: #6F777F;
+
+        --budget-fill: #4FBF92;  --budget-text: #7FD8B2;  --budget-tint: #16291F;
+        --food-fill: #DB8765;    --food-text: #F0A98B;    --food-tint: #2D1E17;
+        --transit-fill: #7BA1DC; --transit-text: #A5C1EC; --transit-tint: #18222F;
+        --etc-fill: #8A929A;     --etc-text: #B5BCC3;     --etc-tint: #222629;
+
+        --warn-fill: #E8B45A;    --warn-text: #F0CB85;    --warn-tint: #2E2514;
+        --danger-fill: #DC6074;  --danger-text: #F09AA8;  --danger-tint: #2F1A1E;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Pretendard", -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding-bottom: calc(env(safe-area-inset-bottom) + 80px); }
+    .app-container { width: 100%; max-width: 430px; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+    .num { font-variant-numeric: tabular-nums; }
+
+    /* Sticky Header Dashboard */
+    .dashboard {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      padding: 20px 16px;
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+    }
+    .dash-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .dash-label { font-size: 13px; color: var(--text-2); font-weight: 500; }
+    .surplus-amount { font-size: 30px; font-weight: 800; color: var(--budget-fill); letter-spacing: -0.5px; }
+    .krw-sub { font-size: 13px; color: var(--text-3); text-align: right; margin-top: 2px; }
+
+    /* Progress bar */
+    .progress-track { height: 8px; background: var(--surface-sunken); border-radius: 999px; margin: 16px 0 12px; overflow: hidden; }
+    .progress-bar { height: 100%; width: 0%; border-radius: 999px; transition: width 0.3s ease, background-color 0.3s ease; }
+
+    .dash-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+    .breakdown-item { display: flex; justify-content: space-between; }
+    .breakdown-item span:first-child { color: var(--text-2); }
+    .breakdown-item span:last-child { font-weight: 600; }
+
+    /* Tabs */
+    .day-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .day-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: var(--radius-chip);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: var(--text);
+      color: var(--surface);
+      border-color: var(--text);
+    }
+
+    /* Spot Cards */
+    .card-list { display: flex; flex-direction: column; gap: 12px; }
+    .spot-card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: opacity 0.2s ease;
+    }
+    .spot-card.status-done { opacity: 0.65; background: var(--surface-sunken); }
+    .spot-card.status-skip { opacity: 0.35; text-decoration: line-through; }
+
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .spot-title-area { display: flex; flex-direction: column; gap: 4px; }
+    .spot-name { font-size: 16px; font-weight: 700; color: var(--text); }
+    .spot-memo { font-size: 12px; color: var(--text-2); }
+
+    /* Chips */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: var(--radius-chip);
+      font-size: 11px;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+    .chip-food { background: var(--food-tint); color: var(--food-text); }
+    .chip-transit { background: var(--transit-tint); color: var(--transit-text); }
+    .chip-etc { background: var(--etc-tint); color: var(--etc-text); }
+    .chip-shopping { background: var(--budget-tint); color: var(--budget-text); }
+
+    .card-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; }
+    .cost-input-wrap { display: flex; align-items: center; gap: 4px; }
+    .cost-input-wrap span { font-size: 14px; font-weight: 600; color: var(--text-2); }
+    .cost-input {
+      width: 80px;
+      font-size: 16px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 6px;
+      background: var(--surface);
+      color: var(--text);
+      text-align: right;
+    }
+
+    .action-group { display: flex; gap: 6px; }
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .status-toggle {
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      cursor: pointer;
+      height: 36px;
+    }
+    .status-toggle.done { background: var(--budget-tint); color: var(--budget-text); border-color: var(--budget-fill); }
+
+    /* Bottom Quick Add Bar */
+    .quick-add-btn {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom) + 16px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 400px;
+      height: 48px;
+      background: var(--text);
+      color: var(--surface);
+      border-radius: var(--radius-chip);
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      cursor: pointer;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Sticky Dashboard -->
+  <header class="dashboard">
+    <div class="dash-row">
+      <div class="dash-label">쇼핑 가용 잔여 예산</div>
+      <div class="num surplus-amount" id="surplusDisplay">¥0</div>
+    </div>
+    <div class="krw-sub num" id="krwDisplay">약 0원</div>
+
+    <div class="progress-track">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="dash-breakdown">
+      <div class="breakdown-item">
+        <span>총 초기 자금</span>
+        <span class="num" id="totalBudgetDisplay">¥117,300</span>
+      </div>
+      <div class="breakdown-item">
+        <span>확정 지출</span>
+        <span class="num" id="spentDisplay">¥0</span>
+      </div>
+      <div class="breakdown-item">
+        <span>남은 일정 예정</span>
+        <span class="num" id="plannedDisplay">¥0</span>
+      </div>
+      <div class="breakdown-item">
+        <span>예산 소진율</span>
+        <span class="num" id="rateDisplay">0%</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Day Tabs -->
+  <nav class="day-tabs">
+    <button class="tab-btn active" onclick="switchDay('ALL')">전체 일정</button>
+    <button class="tab-btn" onclick="switchDay('DAY1')">1일차 (23일)</button>
+    <button class="tab-btn" onclick="switchDay('DAY2')">2일차 (24일)</button>
+    <button class="tab-btn" onclick="switchDay('DAY3')">3일차 (25일)</button>
+  </nav>
+
+  <!-- Spot Cards List -->
+  <main class="card-list" id="cardList"></main>
+</div>
+
+<!-- Floating Action Button -->
+<button class="quick-add-btn" onclick="addNewSpot()">+ 스팟 / 지출 추가</button>
+
+<script>
+  const KRW_RATE = 8.51; // 100엔당 851원 -> 1엔당 8.51원
+  const INITIAL_BUDGET = 117300;
+
+  const DEFAULT_ITEMS = [
+    { id: '1', day: 'DAY1', type: 'transit', name: '공항 ↔ 사카에 왕복 (뮤스카이 2인)', memo: '주부국제공항 특급', cost: 7200, status: 'planned', query: 'Chubu Centrair International Airport' },
+    { id: '2', day: 'DAY1', type: 'food', name: '야바톤 야바초 본점', memo: '점심 - 철판 미소카츠', cost: 4500, status: 'planned', query: 'Yabaton Honten Nagoya' },
+    { id: '3', day: 'DAY1', type: 'food', name: '잇쇼빈 사카에 / 골목 야끼니꾸', memo: '저녁 - 마쓰사카규 와규 & 생맥주', cost: 17000, status: 'planned', query: 'Isshyobin LACHIC Nagoya' },
+    { id: '4', day: 'DAY2', type: 'etc', name: '코메다 커피 / 모닝 세트', memo: '아침 - 토스트 & 모닝커피', cost: 1400, status: 'planned', query: 'Komeda Coffee Sakae Nagoya' },
+    { id: '5', day: 'DAY2', type: 'food', name: '아츠타 호라이켄 / 우나기 후지타', memo: '점심 - 히츠마부시 2인 특상', cost: 10000, status: 'planned', query: 'Atsuta Horaiken Matsuzakaya Nagoya' },
+    { id: '6', day: 'DAY2', type: 'food', name: '니오몬 스시 / 로컬 스시야', memo: '저녁 - 로컬 판초밥 & 사케', cost: 15000, status: 'planned', query: 'Niomon Dori Osu Nagoya' },
+    { id: '7', day: 'DAY2', type: 'food', name: '미센 야바초 본점', memo: '야식 - 타이완 라멘 & 생맥주', cost: 3500, status: 'planned', query: 'Misen Yaba Nagoya' },
+    { id: '8', day: 'DAY3', type: 'food', name: '오스 칸논 타코야끼 & 스트리트', memo: '간식 & 빈티지 골목 먹거리', cost: 2000, status: 'planned', query: 'Osu Kannon Nagoya' },
+    { id: '9', day: 'DAY3', type: 'food', name: '멘야 시시마루', memo: '점심 - 토리파이탄 라멘', cost: 2600, status: 'planned', query: 'Menya Shishimaru Nagoya' }
+  ];
+
+  let items = JSON.parse(localStorage.getItem('nagoya_pocket_items')) || DEFAULT_ITEMS;
+  let activeDay = 'ALL';
+
+  function save() {
+    localStorage.setItem('nagoya_pocket_items', JSON.stringify(items));
+    render();
+  }
+
+  function formatNum(n) {
+    return n.toLocaleString('en-US');
+  }
+
+  function updateDashboard() {
+    let spent = 0;
+    let planned = 0;
+
+    items.forEach(it => {
+      if (it.status === 'done') spent += it.cost;
+      else if (it.status === 'planned') planned += it.cost;
+    });
+
+    const surplus = INITIAL_BUDGET - spent - planned;
+    const usedRate = Math.min(Math.round(((spent + planned) / INITIAL_BUDGET) * 100), 100);
+
+    const surplusEl = document.getElementById('surplusDisplay');
+    const barEl = document.getElementById('progressBar');
+
+    surplusEl.textContent = `¥${formatNum(surplus)}`;
+    document.getElementById('krwDisplay').textContent = `약 ${formatNum(Math.round(surplus * KRW_RATE))}원`;
+    document.getElementById('spentDisplay').textContent = `¥${formatNum(spent)}`;
+    document.getElementById('plannedDisplay').textContent = `¥${formatNum(planned)}`;
+    document.getElementById('rateDisplay').textContent = `${usedRate}%`;
+
+    barEl.style.width = `${usedRate}%`;
+
+    // 토큰 기반 시각 피드백 규칙 적용
+    if (usedRate >= 100 || surplus < 0) {
+      surplusEl.style.color = 'var(--danger-fill)';
+      barEl.style.backgroundColor = 'var(--danger-fill)';
+    } else if (usedRate >= 80) {
+      surplusEl.style.color = 'var(--warn-fill)';
+      barEl.style.backgroundColor = 'var(--warn-fill)';
+    } else {
+      surplusEl.style.color = 'var(--budget-fill)';
+      barEl.style.backgroundColor = 'var(--budget-fill)';
+    }
+  }
+
+  function switchDay(day) {
+    activeDay = day;
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.includes(day === 'ALL' ? '전체' : day.replace('DAY', '')));
+    });
+    renderCards();
+  }
+
+  function toggleStatus(id) {
+    const item = items.find(it => it.id === id);
+    if (!item) return;
+    if (item.status === 'planned') item.status = 'done';
+    else if (item.status === 'done') item.status = 'skip';
+    else item.status = 'planned';
+    save();
+  }
+
+  function updateCost(id, val) {
+    const item = items.find(it => it.id === id);
+    if (item) {
+      item.cost = parseInt(val, 10) || 0;
+      save();
+    }
+  }
+
+  function addNewSpot() {
+    const name = prompt('추가할 스팟 또는 지출 이름을 입력하세요:');
+    if (!name) return;
+    const costStr = prompt('예상 또는 실제 금액(엔화 ¥):', '3000');
+    const cost = parseInt(costStr, 10) || 0;
+
+    items.push({
+      id: Date.now().toString(),
+      day: activeDay === 'ALL' ? 'DAY1' : activeDay,
+      type: 'etc',
+      name: name,
+      memo: '직접 추가한 항목',
+      cost: cost,
+      status: 'planned',
+      query: `${name} Nagoya`
+    });
+    save();
+  }
+
+  function renderCards() {
+    const listEl = document.getElementById('cardList');
+    listEl.innerHTML = '';
+
+    const filtered = activeDay === 'ALL' ? items : items.filter(it => it.day === activeDay);
+
+    filtered.forEach(it => {
+      const card = document.createElement('article');
+      card.className = `spot-card status-${it.status}`;
+
+      let chipClass = 'chip-etc';
+      let chipText = '기타/카페';
+      if (it.type === 'food') { chipClass = 'chip-food'; chipText = '미식'; }
+      else if (it.type === 'transit') { chipClass = 'chip-transit'; chipText = '교통'; }
+      else if (it.type === 'shopping') { chipClass = 'chip-shopping'; chipText = '쇼핑'; }
+
+      let statusLabel = '가기로 결정';
+      if (it.status === 'done') statusLabel = '완료 (확정)';
+      if (it.status === 'skip') statusLabel = '취소/패스';
+
+      const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(it.query || it.name)}`;
+
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="spot-title-area">
+            <span class="chip ${chipClass}">${chipText} · ${it.day}</span>
+            <div class="spot-name">${it.name}</div>
+            <div class="spot-memo">${it.memo}</div>
+          </div>
+          <a href="${mapUrl}" target="_blank" rel="noopener" class="icon-btn" title="구글 지도 열기">📍</a>
+        </div>
+        <div class="card-bottom">
+          <div class="cost-input-wrap">
+            <span>¥</span>
+            <input type="number" class="cost-input num" value="${it.cost}" onchange="updateCost('${it.id}', this.value)">
+          </div>
+          <button class="status-toggle ${it.status === 'done' ? 'done' : ''}" onclick="toggleStatus('${it.id}')">${statusLabel}</button>
+        </div>
+      `;
+      listEl.appendChild(card);
+    });
+  }
+
+  function render() {
+    updateDashboard();
+    renderCards();
+  }
+
+  render();
+</script>
+</body>
+</html>
