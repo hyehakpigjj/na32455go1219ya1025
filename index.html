@@ -293,13 +293,65 @@
       { day: 'DAY2', time: '13:30', title: '사카에 패션거리 & 백화점 쇼핑', desc: '라시크/파르코 편집숍, 일본 브랜드 쇼핑', tag: '쇼핑', type: 'etc', query: 'LACHIC Nagoya' },
       { day: 'DAY2', time: '16:00', title: '오스(大須) 상점가 빈티지 탐방', desc: '2nd STREET, 코메효 본점 세컨핸드 쇼핑', tag: '쇼핑', type: 'etc', query: 'Osu Shopping Street Nagoya' },
       { day: 'DAY2', time: '18:30', title: '니오몬 스시 (오스 골목 노포)', desc: '카운터 판초밥 & 차가운 사케 페어링', tag: '식사', type: 'food', query: 'Niomon Dori Sushi Nagoya' },
-      { day: 'DAY2', time: '21:30', title: '미센 야바초 본점', desc: '야식 - 강렬한 타이완 라멘 & 생맥주', tag: '야식', type: 'food', query: 'Misen Yaba Nagoya' },
+      { day: 'DAY2', time: '21:00', title: '미센 야바초 본점', desc: '야식 - 매콤한 타이완 라멘 & 생맥주', tag: '야식', type: 'food', query: 'Misen Yaba Nagoya' },
+      { day: 'DAY2', time: '22:30', title: '돈키호테 사카에점 (24시간)', desc: '★과자/간식 미리 털기★ 면세 카운터 한산한 밤에 완료', tag: '쇼핑', type: 'etc', query: 'Don Quijote Sakae Nagoya' },
 
       // DAY 3 (10/25 일)
-      { day: 'DAY3', time: '10:00', title: '호텔 체크아웃 & 오스 칸논 산책', desc: '오스 칸논 사찰 앞 노점 타코야끼 간식', tag: '간식', type: 'food', query: 'Osu Kannon Nagoya' },
-      { day: 'DAY3', time: '12:00', title: '멘야 시시마루', desc: '부드럽고 진한 거품 육수 토리파이탄 라멘', tag: '식사', type: 'food', query: 'Menya Shishimaru Nagoya' },
-      { day: 'DAY3', time: '14:00', title: '나고야역 ➔ 추부공항 이동 (뮤스카이)', desc: '공항 면세점 기념품 쇼핑 및 귀국 수속', tag: '교통', type: 'transit', query: 'Chubu Centrair International Airport' }
-    ];
+      { day: 'DAY3', time: '09:30', title: '체크아웃 & 호텔 짐 보관', desc: 'KOKO HOTEL 프런트에 캐리어 무료 보관 후 출발', tag: '체크아웃', type: 'etc', query: 'KOKO HOTEL Nagoya Sakae' },
+      { 
+        day: 'DAY3', 
+        time: '10:00', 
+        title: '오스칸논 아침 산책 & 당고', 
+        desc: '붉은 본당 기념사진 & 갓 구운 미타라시 당고 간식', 
+        tag: '산책', 
+        type: 'food', 
+        query: 'Osu Kannon Nagoya',
+        taxiHelp: {
+          to: '오스칸논 정문 앞 (호텔 ➔ 오스)',
+          jp: '大須観音までお願いします。',
+          read: '오-스칸논 마데 오네가이시마스'
+        }
+      },
+      { 
+        day: 'DAY3', 
+        time: '11:15', 
+        title: '사카에 복귀 (택시 이동)', 
+        desc: '오스 큰길에서 택시 탑승 (약 5~7분 / 1,000엔 내외)', 
+        tag: '교통', 
+        type: 'transit', 
+        query: 'LACHIC Nagoya',
+        taxiHelp: {
+          to: '사카에 라식 백화점 앞 (오스 ➔ 사카에)',
+          jp: '栄のラシック（LACHIC）前までお願いします。',
+          read: '사카에노 라시쿠 마에 마데 오네가이시마스'
+        }
+      },
+      { 
+        day: 'DAY3', 
+        time: '11:30', 
+        title: '3일차 점심 (후보 A / B 선택)', 
+        desc: '취향에 따라 닭 요리 vs 장어구이 로드숍 선택', 
+        tag: '식사', 
+        type: 'food', 
+        query: 'Sakae Nagoya Lunch',
+        toggleOptions: [
+          { name: '후보 A: 토리긴 본점', menu: '나고야 코친 토종닭 오야코동 & 숯불구이', cost: '¥3,500', query: 'Torigin Honten Nagoya' },
+          { name: '후보 B: 우나기 후지타', menu: '단독 로드숍 정통 히츠마부시 만찬', cost: '¥10,000', query: 'Unagi Fujita Nagoya Sakae' }
+        ]
+      },
+      { day: 'DAY3', time: '12:40', title: '마츠자카야 지하 1층 식품관', desc: '고급 선물 쇼핑 (원조 에비센베, 랑그드샤 등)', tag: '쇼핑', type: 'etc', query: 'Matsuzakaya Nagoya' },
+      { day: 'DAY3', time: '13:50', title: '호텔 복귀 & 최종 짐 패킹', desc: '구매한 과자 캐리어에 넣고 픽업 (도보 이동)', tag: '정리', type: 'etc', query: 'KOKO HOTEL Nagoya Sakae' },
+      { 
+        day: 'DAY3', 
+        time: '14:30', 
+        title: '공항 이동<br class="hidden sm:inline"> (뮤스카이 특급)', 
+        desc: '사카에 ➔ 나고야역(5분) ➔ 15:15발 뮤스카이 탑승 ➔ 15:43 공항 도착', 
+        tag: '교통', 
+        type: 'transit', 
+        query: 'Meitetsu Nagoya Station',
+        transitDetail: '사카에역(히가시야마선) 탑승 ➔ 나고야역 하차 후 메이테츠선 환승. 전 좌석 지정석이므로 발권기에서 뮤스카이 티켓(승차권+뮤티켓 ¥1,430/인) 구매!'
+      },
+      { day: 'DAY3', time: '16:00', title: '추부공항 수속 & 18:30 귀국편', desc: '수하물 위탁, 면세점 쇼핑 후 여유롭게 탑승', tag: '출국', type: 'transit', query: 'Chubu Centrair International Airport' }
 
     // 2. 예산 데이터 관리 (LocalStorage)
     let expenses = JSON.parse(localStorage.getItem('nagoya_expenses')) || [];
@@ -350,30 +402,89 @@
       container.innerHTML = '';
       const list = SCHEDULE_DATA.filter(it => it.day === currentScheduleDay);
 
-      list.forEach(item => {
+      list.forEach((item, idx) => {
         const card = document.createElement('div');
-        card.className = 'bg-white border border-appBorder rounded-2xl p-3.5 shadow-2xs flex justify-between items-center gap-3';
+        card.className = 'bg-white border border-appBorder rounded-2xl p-3.5 shadow-2xs flex flex-col gap-2.5';
         
         let chipBg = 'bg-appSunken text-[#5B646D]';
         if (item.type === 'food') chipBg = 'bg-foodTint text-foodFill';
         if (item.type === 'transit') chipBg = 'bg-transitTint text-transitFill';
 
-        card.innerHTML = `
-          <div class="flex items-start gap-3">
-            <span class="text-xs font-extrabold text-[#5B646D] tabular-nums mt-0.5">${item.time}</span>
-            <div class="flex flex-col">
-              <div class="flex items-center gap-1.5">
-                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md ${chipBg}">${item.tag}</span>
-                <span class="font-bold text-xs text-[#1A1D20]">${item.title}</span>
+        // 1. 기본 카드 헤더 및 길찾기 버튼
+        let cardHtml = `
+          <div class="flex justify-between items-center gap-2">
+            <div class="flex items-start gap-2.5 min-w-0">
+              <span class="text-xs font-extrabold text-[#5B646D] tabular-nums mt-0.5 shrink-0">${item.time}</span>
+              <div class="flex flex-col min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md whitespace-nowrap shrink-0 ${chipBg}">${item.tag}</span>
+                  <span class="font-bold text-xs text-[#1A1D20] leading-tight break-keep">${item.title}</span>
+                </div>
+                <span class="text-[11px] text-[#5B646D] mt-0.5 leading-snug break-keep">${item.desc}</span>
               </div>
-              <span class="text-[11px] text-[#5B646D] mt-0.5">${item.desc}</span>
             </div>
+            <a href="https://maps.google.com/?q=${encodeURIComponent(item.query)}" target="_blank" rel="noopener" 
+               class="h-8 px-2.5 flex items-center justify-center bg-appSunken border border-appBorder rounded-lg text-xs font-bold text-[#1A1D20] active:scale-95 transition-all shrink-0">
+              길찾기 📍
+            </a>
           </div>
-          <a href="https://maps.google.com/?q=${encodeURIComponent(item.query)}" target="_blank" rel="noopener" 
-             class="h-8 px-2.5 flex items-center justify-center bg-appSunken border border-appBorder rounded-lg text-xs font-bold text-[#1A1D20] active:scale-95 transition-all shrink-0">
-            길찾기 📍
-          </a>
         `;
+
+        // 2. 택시 기사님용 일본어 토글 박스
+        if (item.taxiHelp) {
+          cardHtml += `
+            <div class="border-t border-appBorder/60 pt-2">
+              <button onclick="document.getElementById('taxi-box-${idx}').classList.toggle('hidden')" 
+                      class="text-[11px] font-bold text-transitFill flex items-center gap-1 active:opacity-70">
+                🚕 기사님께 보여드릴 일본어 카드 열기 ▾
+              </button>
+              <div id="taxi-box-${idx}" class="hidden mt-2 p-2.5 bg-transitTint/60 border border-transitFill/20 rounded-xl flex flex-col gap-1">
+                <div class="text-[10px] text-transitFill font-bold uppercase">목적지: ${item.taxiHelp.to}</div>
+                <div class="text-base font-extrabold text-[#1A1D20] tracking-tight bg-white p-2 rounded-lg border border-transitFill/20">${item.taxiHelp.jp}</div>
+                <div class="text-[11px] text-[#5B646D] font-medium mt-0.5">발음: "${item.taxiHelp.read}"</div>
+              </div>
+            </div>
+          `;
+        }
+
+        // 3. 점심 식당 A / B 토글 박스
+        if (item.toggleOptions) {
+          cardHtml += `
+            <div class="border-t border-appBorder/60 pt-2">
+              <button onclick="document.getElementById('lunch-toggle-${idx}').classList.toggle('hidden')" 
+                      class="text-[11px] font-bold text-foodFill flex items-center gap-1 active:opacity-70">
+                🍽️ 점심 식당 후보 (A:닭요리 vs B:장어) 비교 ▾
+              </button>
+              <div id="lunch-toggle-${idx}" class="hidden mt-2 flex flex-col gap-2">
+                ${item.toggleOptions.map(opt => `
+                  <div class="p-2.5 bg-foodTint/40 border border-foodFill/20 rounded-xl flex justify-between items-center text-xs">
+                    <div>
+                      <div class="font-bold text-[#94401F]">${opt.name} <span class="text-[10px] font-normal text-[#5B646D]">(${opt.cost})</span></div>
+                      <div class="text-[10px] text-[#5B646D] mt-0.5">${opt.menu}</div>
+                    </div>
+                    <a href="https://maps.google.com/?q=${encodeURIComponent(opt.query)}" target="_blank" 
+                       class="text-[11px] font-bold bg-white text-foodFill border border-foodFill/30 px-2 py-1 rounded-lg shrink-0">
+                      지도 📍
+                    </a>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        // 4. 공항 환승/발권 팁 박스
+        if (item.transitDetail) {
+          cardHtml += `
+            <div class="border-t border-appBorder/60 pt-2">
+              <div class="text-[11px] bg-appSunken p-2.5 rounded-xl text-[#5B646D] leading-relaxed break-keep">
+                💡 <span class="font-bold text-[#1A1D20]">환승 팁:</span> ${item.transitDetail}
+              </div>
+            </div>
+          `;
+        }
+
+        card.innerHTML = cardHtml;
         container.appendChild(card);
       });
     }
