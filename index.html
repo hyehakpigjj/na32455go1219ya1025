@@ -300,7 +300,6 @@
         }
       },
       { 
-{ 
         day: 'DAY1', 
         time: '11:40', 
         title: '나고야역 名古屋(なごや) 이동', 
@@ -478,7 +477,7 @@
       renderSchedule();
     }
 
-    function renderSchedule() {
+function renderSchedule() {
       const container = document.getElementById('scheduleContainer');
       container.innerHTML = '';
       const list = SCHEDULE_DATA.filter(it => it.day === currentScheduleDay);
@@ -515,9 +514,9 @@
         if (item.planToggle) {
           cardHtml += `
             <div class="border-t border-appBorder/60 pt-2">
-              <button onclick="document.getElementById('taxi-box-${idx}').classList.toggle('hidden')" 
-                      class="text-[11px] font-bold text-transitFill flex items-center gap-1 active:opacity-70">
-                🗣️ ${item.taxiHelp.to.includes('택시') || item.taxiHelp.to.includes('오스') ? '기사님께' : '현장 직원에게'} 보여드릴 일본어 카드 열기 ▾
+              <button onclick="document.getElementById('plan-box-${idx}').classList.toggle('hidden')" 
+                      class="text-[11px] font-bold text-foodFill flex items-center gap-1 active:opacity-70">
+                ${item.planToggle.title} ▾
               </button>
               <div id="plan-box-${idx}" class="hidden mt-2 p-2.5 bg-foodTint/50 border border-foodFill/20 rounded-xl flex flex-col gap-2 text-xs">
                 <div class="text-[#1A1D20] leading-snug break-keep">${item.planToggle.planA}</div>
@@ -532,13 +531,17 @@
           `;
         }
 
-        // 2. 택시 기사님용 일본어 토글 박스
+        // 2. 일본어 토글 박스 (기사님 vs 현장 직원 안전 분기)
         if (item.taxiHelp) {
+          const targetRole = (item.taxiHelp.to && (item.taxiHelp.to.includes('택시') || item.taxiHelp.to.includes('오스'))) 
+            ? '기사님께' 
+            : '현장 직원에게';
+
           cardHtml += `
             <div class="border-t border-appBorder/60 pt-2">
               <button onclick="document.getElementById('taxi-box-${idx}').classList.toggle('hidden')" 
                       class="text-[11px] font-bold text-transitFill flex items-center gap-1 active:opacity-70">
-                🚕 기사님께 보여드릴 일본어 카드 열기 ▾
+                🗣️️ ${targetRole} 보여드릴 일본어 카드 열기 ▾
               </button>
               <div id="taxi-box-${idx}" class="hidden mt-2 p-2.5 bg-transitTint/60 border border-transitFill/20 rounded-xl flex flex-col gap-1">
                 <div class="text-[10px] text-transitFill font-bold uppercase">목적지: ${item.taxiHelp.to}</div>
