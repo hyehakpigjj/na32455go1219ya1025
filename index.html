@@ -3,435 +3,442 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Nagoya Budget Pocket</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <title>Nagoya Trip 2026</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Pretendard Font -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'media',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            appBg: '#F7F8F6',
+            appSurface: '#FFFFFF',
+            appBorder: '#E6E8E4',
+            appSunken: '#F0F2EF',
+            budgetFill: '#3FA37A',
+            budgetTint: '#E7F4EC',
+            foodFill: '#CC7050',
+            foodTint: '#FAEEE7',
+            transitFill: '#5B87C9',
+            transitTint: '#EAF0FA',
+            dangerFill: '#C8465A',
+            dangerTint: '#FBEAED',
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      /* Base */
-      --bg:             #F7F8F6;
-      --surface:        #FFFFFF;
-      --surface-sunken: #F0F2EF;
-      --border:         #E6E8E4;
-      --shadow-card:    0 1px 2px rgba(26,29,32,.04), 0 4px 12px rgba(26,29,32,.04);
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    /* iOS Safe Area */
+    .pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 80px); }
+    .bottom-safe { bottom: calc(env(safe-area-inset-bottom) + 16px); }
+    /* Hide Scrollbar */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-appBg text-[#1A1D20] font-sans flex justify-center min-h-screen antialiased">
 
-      /* Text */
-      --text:           #1A1D20;
-      --text-2:         #5B646D;
-      --text-3:         #8B939B;
+  <div class="w-full max-w-[430px] p-4 flex flex-col gap-4 pb-safe relative">
 
-      /* 가용 쇼핑 예산 - Sage Green */
-      --budget-fill:    #3FA37A;
-      --budget-text:    #0B6B45;
-      --budget-tint:    #E7F4EC;
+    <!-- 1. Quick Bar (비상/체크인용 고정 정보 카드) -->
+    <section class="bg-white rounded-2xl border border-appBorder shadow-sm p-4 flex flex-col gap-3">
+      <!-- 숙소 정보 (입국신고서/타베로그용 원클릭 복사) -->
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[11px] font-bold text-[#5B646D] uppercase tracking-wider">Hotel Info (체크인/입국신고)</span>
+          <span class="text-[10px] text-budgetFill font-semibold bg-budgetTint px-2 py-0.5 rounded-full">사카에역 도보권</span>
+        </div>
+        <div class="flex items-center justify-between bg-appSunken p-2.5 rounded-xl">
+          <div class="flex flex-col text-xs leading-tight">
+            <span class="font-bold text-[#1A1D20]">코코호텔 나고야 사카에</span>
+            <span class="text-[11px] text-[#5B646D] mt-0.5">KOKO HOTEL Nagoya Sakae</span>
+            <span class="text-[10px] text-[#8B939B] mt-0.5">愛知県名古屋市中区錦3-4-3</span>
+          </div>
+          <button onclick="copyToClipboard('KOKO HOTEL Nagoya Sakae\n愛知県名古屋市中区錦3-4-3\n+81-52-961-0055', '호텔 영문/일문 주소가 복사되었습니다!')" 
+                  class="bg-white border border-appBorder text-xs font-semibold px-2.5 py-1.5 rounded-lg active:scale-95 transition-all text-[#1A1D20] shadow-2xs whitespace-nowrap">
+            복사 📋
+          </button>
+        </div>
+      </div>
 
-      /* 메인 미식 - Terracotta */
-      --food-fill:      #CC7050;
-      --food-text:      #94401F;
-      --food-tint:      #FAEEE7;
+      <!-- 기린 맥주공장 예약 퀵 바 -->
+      <div class="border-t border-appBorder pt-2.5">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[11px] font-bold text-foodFill uppercase tracking-wider">Kirin Brewery Tour</span>
+          <span class="text-[10px] text-foodFill font-semibold bg-foodTint px-2 py-0.5 rounded-full">10/23(금) 15:10</span>
+        </div>
+        <div class="bg-foodTint/50 border border-[#FAEEE7] p-2.5 rounded-xl flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-[#94401F]">집결: 비와지마역(枇杷島駅) 로터리</div>
+            <div class="text-[11px] text-[#94401F]/80 mt-0.5">전용 셔틀 탑승 (출발 20분 전 대기)</div>
+          </div>
+          <a href="https://maps.google.com/?q=Biwajima+Station" target="_blank" class="bg-white border border-foodFill/20 text-[#94401F] text-[11px] font-bold px-2 py-1.5 rounded-lg shadow-2xs">
+            셔틀 위치 📍
+          </a>
+        </div>
+      </div>
+    </section>
 
-      /* 교통/필수 - Dusty Blue */
-      --transit-fill:   #5B87C9;
-      --transit-text:   #2B5391;
-      --transit-tint:   #EAF0FA;
+    <!-- 2. Global Navigation Tabs -->
+    <nav class="flex bg-appSunken p-1 rounded-xl gap-1">
+      <button onclick="changeTab('timetable')" id="tabBtn-timetable" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white text-[#1A1D20] shadow-2xs">일정표</button>
+      <button onclick="changeTab('budget')" id="tabBtn-budget" class="flex-1 py-2 text-xs font-semibold rounded-lg transition-all text-[#5B646D]">예산 트래커</button>
+      <button onclick="changeTab('vouchers')" id="tabBtn-vouchers" class="flex-1 py-2 text-xs font-semibold rounded-lg transition-all text-[#5B646D]">바우처</button>
+    </nav>
 
-      /* 기타/카페/쇼핑 - Neutral */
-      --etc-fill:       #9AA1A9;
-      --etc-text:       #4A525A;
-      --etc-tint:       #EEF0F2;
+    <!-- Tab 1: 타임테이블 (Day 1 ~ Day 3) -->
+    <section id="tab-timetable" class="flex flex-col gap-3">
+      <!-- Day Selector Sub-tabs -->
+      <div class="flex gap-1.5 no-scrollbar overflow-x-auto">
+        <button onclick="filterDay('DAY1')" id="dayBtn-DAY1" class="day-filter px-3 py-1.5 rounded-full text-xs font-bold bg-[#1A1D20] text-white">1일차 (23일)</button>
+        <button onclick="filterDay('DAY2')" id="dayBtn-DAY2" class="day-filter px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-appBorder text-[#5B646D]">2일차 (24일)</button>
+        <button onclick="filterDay('DAY3')" id="dayBtn-DAY3" class="day-filter px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-appBorder text-[#5B646D]">3일차 (25일)</button>
+      </div>
 
-      /* 상태 알림 */
-      --warn-fill:      #E2A93B;
-      --warn-text:      #7F5300;
-      --warn-tint:      #FBF3DE;
-      --danger-fill:    #C8465A;
-      --danger-text:    #A3283D;
-      --danger-tint:    #FBEAED;
+      <!-- Schedule Cards List -->
+      <div id="scheduleContainer" class="flex flex-col gap-2.5">
+        <!-- JS로 동적 렌더링 -->
+      </div>
+    </section>
 
-      /* Shape */
-      --radius-card:    16px;
-      --radius-chip:    999px;
+    <!-- Tab 2: 바우처 보관함 (E-티켓, 예약 캡처) -->
+    <section id="tab-vouchers" class="hidden flex-col gap-3">
+      <div class="text-xs text-[#5B646D] px-1">오프라인에서도 이미지를 터치해 원본 모달로 확대할 수 있습니다.</div>
+
+      <!-- 기린 맥주 예약증 카드 -->
+      <div class="bg-white border border-appBorder rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-sm">기린 맥주공장 예약 확정서</span>
+          <span class="text-[11px] bg-foodTint text-foodFill font-bold px-2 py-0.5 rounded-full">10/23 15:10</span>
+        </div>
+        <p class="text-xs text-[#5B646D]">예약번호: 현장 안내 메일 참조 (2인 투어)</p>
+        <div onclick="openVoucherModal('https://images.unsplash.com/photo-1518176258769-f227c798150e?w=800&auto=format&fit=crop')" class="cursor-pointer overflow-hidden rounded-xl border border-appBorder h-36 bg-gray-100 relative group">
+          <img src="https://images.unsplash.com/photo-1518176258769-f227c798150e?w=800&auto=format&fit=crop" class="w-full h-full object-cover group-active:scale-105 transition-all" alt="기린 바우처">
+          <div class="absolute inset-0 bg-black/20 flex items-center justify-center text-white text-xs font-bold">터치하여 크게 보기 🔍</div>
+        </div>
+      </div>
+
+      <!-- 항공 E-Ticket 카드 -->
+      <div class="bg-white border border-appBorder rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-sm">인천 ↔ 추부 왕복 E-티켓</span>
+          <span class="text-[11px] bg-transitTint text-transitFill font-bold px-2 py-0.5 rounded-full">2인 예약</span>
+        </div>
+        <p class="text-xs text-[#5B646D]">출국 10/23 07:30 (ICN) ➔ 09:25 (NGO)</p>
+        <div onclick="openVoucherModal('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop')" class="cursor-pointer overflow-hidden rounded-xl border border-appBorder h-36 bg-gray-100 relative group">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop" class="w-full h-full object-cover group-active:scale-105 transition-all" alt="항공권">
+          <div class="absolute inset-0 bg-black/20 flex items-center justify-center text-white text-xs font-bold">터치하여 크게 보기 🔍</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: 트래블월렛 예산 트래커 (Budget) -->
+    <section id="tab-budget" class="hidden flex-col gap-4">
+      <!-- 실시간 대시보드 -->
+      <div class="bg-white border border-appBorder rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs font-bold text-[#5B646D]">남은 트래블월렛 잔액</span>
+          <span class="text-[26px] font-extrabold text-budgetFill tabular-nums" id="budgetRemaining">¥117,300</span>
+        </div>
+        <div class="flex justify-between text-xs text-[#8B939B] tabular-nums border-b border-appBorder pb-3">
+          <span>원화 환산 (8.51원 기준)</span>
+          <span id="budgetKrw">약 998,223원</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 pt-1 text-center text-xs tabular-nums">
+          <div class="bg-appSunken p-2 rounded-xl">
+            <div class="text-[10px] text-[#8B939B]">식비 지출</div>
+            <div class="font-bold text-foodFill mt-0.5" id="spentFood">¥0</div>
+          </div>
+          <div class="bg-appSunken p-2 rounded-xl">
+            <div class="text-[10px] text-[#8B939B]">교통 지출</div>
+            <div class="font-bold text-transitFill mt-0.5" id="spentTransit">¥0</div>
+          </div>
+          <div class="bg-appSunken p-2 rounded-xl">
+            <div class="text-[10px] text-[#8B939B]">쇼핑/기타</div>
+            <div class="font-bold text-[#1A1D20] mt-0.5" id="spentEtc">¥0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 빠른 지출 입력 폼 -->
+      <div class="bg-white border border-appBorder rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+        <span class="text-xs font-bold text-[#1A1D20]">빠른 지출 기록</span>
+        <div class="flex gap-1.5">
+          <button type="button" onclick="setQuickCategory('food')" id="catBtn-food" class="cat-btn flex-1 py-1.5 text-xs font-bold rounded-lg bg-foodTint text-foodFill border border-foodFill/30">식비</button>
+          <button type="button" onclick="setQuickCategory('transit')" id="catBtn-transit" class="cat-btn flex-1 py-1.5 text-xs font-semibold rounded-lg bg-appSunken text-[#5B646D]">교통</button>
+          <button type="button" onclick="setQuickCategory('shopping')" id="catBtn-shopping" class="cat-btn flex-1 py-1.5 text-xs font-semibold rounded-lg bg-appSunken text-[#5B646D]">쇼핑/기타</button>
+        </div>
+        <div class="flex gap-2">
+          <input type="text" id="expenseTitle" placeholder="지출 내용 (예: 야바톤 점심)" class="flex-1 text-xs p-2.5 rounded-xl border border-appBorder bg-appSunken outline-none focus:bg-white focus:border-budgetFill">
+          <input type="number" id="expenseAmount" placeholder="금액(¥)" class="w-24 text-xs tabular-nums p-2.5 rounded-xl border border-appBorder bg-appSunken outline-none focus:bg-white focus:border-budgetFill text-right">
+        </div>
+        <button onclick="addExpense()" class="w-full py-2.5 bg-[#1A1D20] text-white text-xs font-bold rounded-xl active:scale-98 transition-all">
+          트래블월렛 지출 차감
+        </button>
+      </div>
+
+      <!-- 지출 내역 리스트 -->
+      <div class="flex flex-col gap-2">
+        <div class="flex justify-between items-center px-1">
+          <span class="text-xs font-bold text-[#5B646D]">지출 히스토리</span>
+          <button onclick="resetBudget()" class="text-[10px] text-dangerFill underline">초기화</button>
+        </div>
+        <div id="expenseList" class="flex flex-col gap-1.5">
+          <!-- JS 렌더링 -->
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 이미지 모달 팝업 -->
+  <div id="imageModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4" onclick="closeVoucherModal()">
+    <div class="max-w-[400px] w-full bg-white rounded-2xl overflow-hidden p-2" onclick="event.stopPropagation()">
+      <img id="modalImg" src="" class="w-full h-auto rounded-xl" alt="바우처 원본">
+      <button onclick="closeVoucherModal()" class="w-full mt-2 py-2 bg-appSunken text-[#1A1D20] text-xs font-bold rounded-xl">닫기</button>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 -->
+  <div id="toast" class="fixed bottom-6 bg-[#1A1D20] text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-lg opacity-0 transition-opacity pointer-events-none z-50"></div>
+
+  <script>
+    const INITIAL_BUDGET = 117300;
+    const KRW_RATE = 8.51;
+
+    // 1. 일정 데이터 (기린 맥주 공장 15:10 포함 완벽 구성)
+    const SCHEDULE_DATA = [
+      // DAY 1 (10/23 금)
+      { day: 'DAY1', time: '09:25', title: '추부국제공항 도착 및 입국 수속', desc: '뮤스카이 탑승 ➔ 사카에역 이동', tag: '교통', type: 'transit', query: 'Chubu Centrair International Airport' },
+      { day: 'DAY1', time: '11:30', title: '코코호텔 나고야 사카에 짐 보관', desc: '프런트 캐리어 Drop 후 점심 출발', tag: '체크인', type: 'etc', query: 'KOKO HOTEL Nagoya Sakae' },
+      { day: 'DAY1', time: '12:00', title: '야바톤 야바초 본점', desc: '철판 미소카츠 정식 (도보 이동)', tag: '식사', type: 'food', query: 'Yabaton Honten Nagoya' },
+      { day: 'DAY1', time: '14:20', title: '비와지마역 이동 (기린 셔틀 탑승)', desc: 'JR/메이테츠 이용 ➔ 역 앞 무료 셔틀버스', tag: '교통', type: 'transit', query: 'Biwajima Station' },
+      { day: 'DAY1', time: '15:10', title: '기린 맥주공장 견학 & 시음', desc: '★예약 확정★ 신선한 맥주 3종 비교 시음', tag: '투어', type: 'food', query: 'Kirin Brewery Nagoya' },
+      { day: 'DAY1', time: '18:30', title: '야키니쿠 진 (사카에 로컬)', desc: '숯불 와규 갈비, 우설 & 나마비루 만찬', tag: '식사', type: 'food', query: 'Yakiniku Jin Sakae Nagoya' },
+
+      // DAY 2 (10/24 토)
+      { day: 'DAY2', time: '09:00', title: '코메다 커피 사카에', desc: '나고야 모닝 토스트 세트 & 모닝커피', tag: '카페', type: 'etc', query: 'Komeda Coffee Sakae Nagoya' },
+      { day: 'DAY2', time: '11:00', title: '우나기 후지타 (사카에 로드숍)', desc: '바삭하게 구운 나고야 전통 히츠마부시', tag: '식사', type: 'food', query: 'Unagi Fujita Nagoya Sakae' },
+      { day: 'DAY2', time: '13:30', title: '사카에 패션거리 & 백화점 쇼핑', desc: '라시크/파르코 편집숍, 일본 브랜드 쇼핑', tag: '쇼핑', type: 'etc', query: 'LACHIC Nagoya' },
+      { day: 'DAY2', time: '16:00', title: '오스(大須) 상점가 빈티지 탐방', desc: '2nd STREET, 코메효 본점 세컨핸드 쇼핑', tag: '쇼핑', type: 'etc', query: 'Osu Shopping Street Nagoya' },
+      { day: 'DAY2', time: '18:30', title: '니오몬 스시 (오스 골목 노포)', desc: '카운터 판초밥 & 차가운 사케 페어링', tag: '식사', type: 'food', query: 'Niomon Dori Sushi Nagoya' },
+      { day: 'DAY2', time: '21:30', title: '미센 야바초 본점', desc: '야식 - 강렬한 타이완 라멘 & 생맥주', tag: '야식', type: 'food', query: 'Misen Yaba Nagoya' },
+
+      // DAY 3 (10/25 일)
+      { day: 'DAY3', time: '10:00', title: '호텔 체크아웃 & 오스 칸논 산책', desc: '오스 칸논 사찰 앞 노점 타코야끼 간식', tag: '간식', type: 'food', query: 'Osu Kannon Nagoya' },
+      { day: 'DAY3', time: '12:00', title: '멘야 시시마루', desc: '부드럽고 진한 거품 육수 토리파이탄 라멘', tag: '식사', type: 'food', query: 'Menya Shishimaru Nagoya' },
+      { day: 'DAY3', time: '14:00', title: '나고야역 ➔ 추부공항 이동 (뮤스카이)', desc: '공항 면세점 기념품 쇼핑 및 귀국 수속', tag: '교통', type: 'transit', query: 'Chubu Centrair International Airport' }
+    ];
+
+    // 2. 예산 데이터 관리 (LocalStorage)
+    let expenses = JSON.parse(localStorage.getItem('nagoya_expenses')) || [];
+    let selectedQuickCategory = 'food';
+    let currentScheduleDay = 'DAY1';
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 2000);
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111315; --surface: #1B1E21; --surface-sunken: #15181A;
-        --border: #2A2E32; --shadow-card: none;
-        --text: #ECEEF0; --text-2: #A3ABB3; --text-3: #6F777F;
+    function copyToClipboard(text, alertMsg) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(alertMsg);
+      });
+    }
 
-        --budget-fill: #4FBF92;  --budget-text: #7FD8B2;  --budget-tint: #16291F;
-        --food-fill: #DB8765;    --food-text: #F0A98B;    --food-tint: #2D1E17;
-        --transit-fill: #7BA1DC; --transit-text: #A5C1EC; --transit-tint: #18222F;
-        --etc-fill: #8A929A;     --etc-text: #B5BCC3;     --etc-tint: #222629;
+    // Tab Navigation
+    function changeTab(tab) {
+      ['timetable', 'budget', 'vouchers'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
+        document.getElementById(`tab-${t}`).classList.toggle('flex', t === tab);
+        const btn = document.getElementById(`tabBtn-${t}`);
+        if (t === tab) {
+          btn.className = 'flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white text-[#1A1D20] shadow-2xs';
+        } else {
+          btn.className = 'flex-1 py-2 text-xs font-semibold rounded-lg transition-all text-[#5B646D]';
+        }
+      });
+    }
 
-        --warn-fill: #E8B45A;    --warn-text: #F0CB85;    --warn-tint: #2E2514;
-        --danger-fill: #DC6074;  --danger-text: #F09AA8;  --danger-tint: #2F1A1E;
+    // Timetable Filter & Render
+    function filterDay(day) {
+      currentScheduleDay = day;
+      document.querySelectorAll('.day-filter').forEach(btn => {
+        const isMatch = btn.id === `dayBtn-${day}`;
+        btn.className = isMatch 
+          ? 'day-filter px-3 py-1.5 rounded-full text-xs font-bold bg-[#1A1D20] text-white' 
+          : 'day-filter px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-appBorder text-[#5B646D]';
+      });
+      renderSchedule();
+    }
+
+    function renderSchedule() {
+      const container = document.getElementById('scheduleContainer');
+      container.innerHTML = '';
+      const list = SCHEDULE_DATA.filter(it => it.day === currentScheduleDay);
+
+      list.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'bg-white border border-appBorder rounded-2xl p-3.5 shadow-2xs flex justify-between items-center gap-3';
+        
+        let chipBg = 'bg-appSunken text-[#5B646D]';
+        if (item.type === 'food') chipBg = 'bg-foodTint text-foodFill';
+        if (item.type === 'transit') chipBg = 'bg-transitTint text-transitFill';
+
+        card.innerHTML = `
+          <div class="flex items-start gap-3">
+            <span class="text-xs font-extrabold text-[#5B646D] tabular-nums mt-0.5">${item.time}</span>
+            <div class="flex flex-col">
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md ${chipBg}">${item.tag}</span>
+                <span class="font-bold text-xs text-[#1A1D20]">${item.title}</span>
+              </div>
+              <span class="text-[11px] text-[#5B646D] mt-0.5">${item.desc}</span>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=${encodeURIComponent(item.query)}" target="_blank" rel="noopener" 
+             class="h-8 px-2.5 flex items-center justify-center bg-appSunken border border-appBorder rounded-lg text-xs font-bold text-[#1A1D20] active:scale-95 transition-all shrink-0">
+            길찾기 📍
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Budget Tracker Logic
+    function setQuickCategory(cat) {
+      selectedQuickCategory = cat;
+      ['food', 'transit', 'shopping'].forEach(c => {
+        const btn = document.getElementById(`catBtn-${c}`);
+        if (c === cat) {
+          btn.className = `cat-btn flex-1 py-1.5 text-xs font-bold rounded-lg border ${
+            c === 'food' ? 'bg-foodTint text-foodFill border-foodFill/30' :
+            c === 'transit' ? 'bg-transitTint text-transitFill border-transitFill/30' : 'bg-appSunken text-[#1A1D20] border-[#1A1D20]/30'
+          }`;
+        } else {
+          btn.className = 'cat-btn flex-1 py-1.5 text-xs font-semibold rounded-lg bg-appSunken text-[#5B646D] border-transparent';
+        }
+      });
+    }
+
+    function addExpense() {
+      const titleInput = document.getElementById('expenseTitle');
+      const amountInput = document.getElementById('expenseAmount');
+      const title = titleInput.value.trim() || '현지 지출';
+      const amount = parseInt(amountInput.value, 10);
+
+      if (!amount || amount <= 0) {
+        showToast('유효한 금액을 입력해 주세요.');
+        return;
+      }
+
+      expenses.unshift({
+        id: Date.now(),
+        category: selectedQuickCategory,
+        title: title,
+        amount: amount,
+        time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+      });
+
+      localStorage.setItem('nagoya_expenses', JSON.stringify(expenses));
+      titleInput.value = '';
+      amountInput.value = '';
+      updateBudgetUI();
+      showToast('지출이 차감되었습니다.');
+    }
+
+    function removeExpense(id) {
+      expenses = expenses.filter(e => e.id !== id);
+      localStorage.setItem('nagoya_expenses', JSON.stringify(expenses));
+      updateBudgetUI();
+    }
+
+    function resetBudget() {
+      if (confirm('지출 내역을 전부 초기화하고 ¥117,300으로 복원하시겠습니까?')) {
+        expenses = [];
+        localStorage.removeItem('nagoya_expenses');
+        updateBudgetUI();
       }
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Pretendard", -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding-bottom: calc(env(safe-area-inset-bottom) + 80px); }
-    .app-container { width: 100%; max-width: 430px; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+    function updateBudgetUI() {
+      let foodTotal = 0;
+      let transitTotal = 0;
+      let etcTotal = 0;
 
-    .num { font-variant-numeric: tabular-nums; }
+      expenses.forEach(e => {
+        if (e.category === 'food') foodTotal += e.amount;
+        else if (e.category === 'transit') transitTotal += e.amount;
+        else etcTotal += e.amount;
+      });
 
-    /* Sticky Header Dashboard */
-    .dashboard {
-      background: var(--surface);
-      border-radius: var(--radius-card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-card);
-      padding: 20px 16px;
-      position: sticky;
-      top: 12px;
-      z-index: 10;
-    }
-    .dash-row { display: flex; justify-content: space-between; align-items: baseline; }
-    .dash-label { font-size: 13px; color: var(--text-2); font-weight: 500; }
-    .surplus-amount { font-size: 30px; font-weight: 800; color: var(--budget-fill); letter-spacing: -0.5px; }
-    .krw-sub { font-size: 13px; color: var(--text-3); text-align: right; margin-top: 2px; }
+      const totalSpent = foodTotal + transitTotal + etcTotal;
+      const remaining = INITIAL_BUDGET - totalSpent;
 
-    /* Progress bar */
-    .progress-track { height: 8px; background: var(--surface-sunken); border-radius: 999px; margin: 16px 0 12px; overflow: hidden; }
-    .progress-bar { height: 100%; width: 0%; border-radius: 999px; transition: width 0.3s ease, background-color 0.3s ease; }
+      document.getElementById('budgetRemaining').textContent = `¥${remaining.toLocaleString()}`;
+      document.getElementById('budgetKrw').textContent = `약 ${Math.round(remaining * KRW_RATE).toLocaleString()}원`;
+      document.getElementById('spentFood').textContent = `¥${foodTotal.toLocaleString()}`;
+      document.getElementById('spentTransit').textContent = `¥${transitTotal.toLocaleString()}`;
+      document.getElementById('spentEtc').textContent = `¥${etcTotal.toLocaleString()}`;
 
-    .dash-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
-    .breakdown-item { display: flex; justify-content: space-between; }
-    .breakdown-item span:first-child { color: var(--text-2); }
-    .breakdown-item span:last-child { font-weight: 600; }
+      // 지출 히스토리 목록 렌더링
+      const listContainer = document.getElementById('expenseList');
+      listContainer.innerHTML = '';
 
-    /* Tabs */
-    .day-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-    .day-tabs::-webkit-scrollbar { display: none; }
-    .tab-btn {
-      padding: 8px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: var(--radius-chip);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text-2);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .tab-btn.active {
-      background: var(--text);
-      color: var(--surface);
-      border-color: var(--text);
-    }
+      if (expenses.length === 0) {
+        listContainer.innerHTML = '<div class="text-center py-6 text-xs text-[#8B939B]">기록된 지출이 없습니다.</div>';
+        return;
+      }
 
-    /* Spot Cards */
-    .card-list { display: flex; flex-direction: column; gap: 12px; }
-    .spot-card {
-      background: var(--surface);
-      border-radius: var(--radius-card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-card);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: opacity 0.2s ease;
-    }
-    .spot-card.status-done { opacity: 0.65; background: var(--surface-sunken); }
-    .spot-card.status-skip { opacity: 0.35; text-decoration: line-through; }
+      expenses.forEach(e => {
+        const row = document.createElement('div');
+        row.className = 'bg-white border border-appBorder rounded-xl p-2.5 flex justify-between items-center text-xs';
+        
+        let badge = '식비';
+        let badgeColor = 'text-foodFill bg-foodTint';
+        if (e.category === 'transit') { badge = '교통'; badgeColor = 'text-transitFill bg-transitTint'; }
+        if (e.category === 'shopping') { badge = '쇼핑'; badgeColor = 'text-[#5B646D] bg-appSunken'; }
 
-    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-    .spot-title-area { display: flex; flex-direction: column; gap: 4px; }
-    .spot-name { font-size: 16px; font-weight: 700; color: var(--text); }
-    .spot-memo { font-size: 12px; color: var(--text-2); }
-
-    /* Chips */
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 8px;
-      border-radius: var(--radius-chip);
-      font-size: 11px;
-      font-weight: 600;
-      align-self: flex-start;
-    }
-    .chip-food { background: var(--food-tint); color: var(--food-text); }
-    .chip-transit { background: var(--transit-tint); color: var(--transit-text); }
-    .chip-etc { background: var(--etc-tint); color: var(--etc-text); }
-    .chip-shopping { background: var(--budget-tint); color: var(--budget-text); }
-
-    .card-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; }
-    .cost-input-wrap { display: flex; align-items: center; gap: 4px; }
-    .cost-input-wrap span { font-size: 14px; font-weight: 600; color: var(--text-2); }
-    .cost-input {
-      width: 80px;
-      font-size: 16px;
-      font-weight: 700;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 4px 6px;
-      background: var(--surface);
-      color: var(--text);
-      text-align: right;
-    }
-
-    .action-group { display: flex; gap: 6px; }
-    .icon-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .status-toggle {
-      padding: 0 10px;
-      font-size: 12px;
-      font-weight: 600;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text-2);
-      cursor: pointer;
-      height: 36px;
-    }
-    .status-toggle.done { background: var(--budget-tint); color: var(--budget-text); border-color: var(--budget-fill); }
-
-    /* Bottom Quick Add Bar */
-    .quick-add-btn {
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom) + 16px);
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 32px);
-      max-width: 400px;
-      height: 48px;
-      background: var(--text);
-      color: var(--surface);
-      border-radius: var(--radius-chip);
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      cursor: pointer;
-      z-index: 20;
-    }
-  </style>
-</head>
-<body>
-
-<div class="app-container">
-  <!-- Sticky Dashboard -->
-  <header class="dashboard">
-    <div class="dash-row">
-      <div class="dash-label">쇼핑 가용 잔여 예산</div>
-      <div class="num surplus-amount" id="surplusDisplay">¥0</div>
-    </div>
-    <div class="krw-sub num" id="krwDisplay">약 0원</div>
-
-    <div class="progress-track">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <div class="dash-breakdown">
-      <div class="breakdown-item">
-        <span>총 초기 자금</span>
-        <span class="num" id="totalBudgetDisplay">¥117,300</span>
-      </div>
-      <div class="breakdown-item">
-        <span>확정 지출</span>
-        <span class="num" id="spentDisplay">¥0</span>
-      </div>
-      <div class="breakdown-item">
-        <span>남은 일정 예정</span>
-        <span class="num" id="plannedDisplay">¥0</span>
-      </div>
-      <div class="breakdown-item">
-        <span>예산 소진율</span>
-        <span class="num" id="rateDisplay">0%</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Day Tabs -->
-  <nav class="day-tabs">
-    <button class="tab-btn active" onclick="switchDay('ALL')">전체 일정</button>
-    <button class="tab-btn" onclick="switchDay('DAY1')">1일차 (23일)</button>
-    <button class="tab-btn" onclick="switchDay('DAY2')">2일차 (24일)</button>
-    <button class="tab-btn" onclick="switchDay('DAY3')">3일차 (25일)</button>
-  </nav>
-
-  <!-- Spot Cards List -->
-  <main class="card-list" id="cardList"></main>
-</div>
-
-<!-- Floating Action Button -->
-<button class="quick-add-btn" onclick="addNewSpot()">+ 스팟 / 지출 추가</button>
-
-<script>
-  const KRW_RATE = 8.51; // 100엔당 851원 -> 1엔당 8.51원
-  const INITIAL_BUDGET = 117300;
-
-  const DEFAULT_ITEMS = [
-    { id: '1', day: 'DAY1', type: 'transit', name: '공항 ↔ 사카에 왕복 (뮤스카이 2인)', memo: '주부국제공항 특급', cost: 7200, status: 'planned', query: 'Chubu Centrair International Airport' },
-    { id: '2', day: 'DAY1', type: 'food', name: '야바톤 야바초 본점', memo: '점심 - 철판 미소카츠', cost: 4500, status: 'planned', query: 'Yabaton Honten Nagoya' },
-    { id: '3', day: 'DAY1', type: 'food', name: '잇쇼빈 사카에 / 골목 야끼니꾸', memo: '저녁 - 마쓰사카규 와규 & 생맥주', cost: 17000, status: 'planned', query: 'Isshyobin LACHIC Nagoya' },
-    { id: '4', day: 'DAY2', type: 'etc', name: '코메다 커피 / 모닝 세트', memo: '아침 - 토스트 & 모닝커피', cost: 1400, status: 'planned', query: 'Komeda Coffee Sakae Nagoya' },
-    { id: '5', day: 'DAY2', type: 'food', name: '아츠타 호라이켄 / 우나기 후지타', memo: '점심 - 히츠마부시 2인 특상', cost: 10000, status: 'planned', query: 'Atsuta Horaiken Matsuzakaya Nagoya' },
-    { id: '6', day: 'DAY2', type: 'food', name: '니오몬 스시 / 로컬 스시야', memo: '저녁 - 로컬 판초밥 & 사케', cost: 15000, status: 'planned', query: 'Niomon Dori Osu Nagoya' },
-    { id: '7', day: 'DAY2', type: 'food', name: '미센 야바초 본점', memo: '야식 - 타이완 라멘 & 생맥주', cost: 3500, status: 'planned', query: 'Misen Yaba Nagoya' },
-    { id: '8', day: 'DAY3', type: 'food', name: '오스 칸논 타코야끼 & 스트리트', memo: '간식 & 빈티지 골목 먹거리', cost: 2000, status: 'planned', query: 'Osu Kannon Nagoya' },
-    { id: '9', day: 'DAY3', type: 'food', name: '멘야 시시마루', memo: '점심 - 토리파이탄 라멘', cost: 2600, status: 'planned', query: 'Menya Shishimaru Nagoya' }
-  ];
-
-  let items = JSON.parse(localStorage.getItem('nagoya_pocket_items')) || DEFAULT_ITEMS;
-  let activeDay = 'ALL';
-
-  function save() {
-    localStorage.setItem('nagoya_pocket_items', JSON.stringify(items));
-    render();
-  }
-
-  function formatNum(n) {
-    return n.toLocaleString('en-US');
-  }
-
-  function updateDashboard() {
-    let spent = 0;
-    let planned = 0;
-
-    items.forEach(it => {
-      if (it.status === 'done') spent += it.cost;
-      else if (it.status === 'planned') planned += it.cost;
-    });
-
-    const surplus = INITIAL_BUDGET - spent - planned;
-    const usedRate = Math.min(Math.round(((spent + planned) / INITIAL_BUDGET) * 100), 100);
-
-    const surplusEl = document.getElementById('surplusDisplay');
-    const barEl = document.getElementById('progressBar');
-
-    surplusEl.textContent = `¥${formatNum(surplus)}`;
-    document.getElementById('krwDisplay').textContent = `약 ${formatNum(Math.round(surplus * KRW_RATE))}원`;
-    document.getElementById('spentDisplay').textContent = `¥${formatNum(spent)}`;
-    document.getElementById('plannedDisplay').textContent = `¥${formatNum(planned)}`;
-    document.getElementById('rateDisplay').textContent = `${usedRate}%`;
-
-    barEl.style.width = `${usedRate}%`;
-
-    // 토큰 기반 시각 피드백 규칙 적용
-    if (usedRate >= 100 || surplus < 0) {
-      surplusEl.style.color = 'var(--danger-fill)';
-      barEl.style.backgroundColor = 'var(--danger-fill)';
-    } else if (usedRate >= 80) {
-      surplusEl.style.color = 'var(--warn-fill)';
-      barEl.style.backgroundColor = 'var(--warn-fill)';
-    } else {
-      surplusEl.style.color = 'var(--budget-fill)';
-      barEl.style.backgroundColor = 'var(--budget-fill)';
-    }
-  }
-
-  function switchDay(day) {
-    activeDay = day;
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent.includes(day === 'ALL' ? '전체' : day.replace('DAY', '')));
-    });
-    renderCards();
-  }
-
-  function toggleStatus(id) {
-    const item = items.find(it => it.id === id);
-    if (!item) return;
-    if (item.status === 'planned') item.status = 'done';
-    else if (item.status === 'done') item.status = 'skip';
-    else item.status = 'planned';
-    save();
-  }
-
-  function updateCost(id, val) {
-    const item = items.find(it => it.id === id);
-    if (item) {
-      item.cost = parseInt(val, 10) || 0;
-      save();
-    }
-  }
-
-  function addNewSpot() {
-    const name = prompt('추가할 스팟 또는 지출 이름을 입력하세요:');
-    if (!name) return;
-    const costStr = prompt('예상 또는 실제 금액(엔화 ¥):', '3000');
-    const cost = parseInt(costStr, 10) || 0;
-
-    items.push({
-      id: Date.now().toString(),
-      day: activeDay === 'ALL' ? 'DAY1' : activeDay,
-      type: 'etc',
-      name: name,
-      memo: '직접 추가한 항목',
-      cost: cost,
-      status: 'planned',
-      query: `${name} Nagoya`
-    });
-    save();
-  }
-
-  function renderCards() {
-    const listEl = document.getElementById('cardList');
-    listEl.innerHTML = '';
-
-    const filtered = activeDay === 'ALL' ? items : items.filter(it => it.day === activeDay);
-
-    filtered.forEach(it => {
-      const card = document.createElement('article');
-      card.className = `spot-card status-${it.status}`;
-
-      let chipClass = 'chip-etc';
-      let chipText = '기타/카페';
-      if (it.type === 'food') { chipClass = 'chip-food'; chipText = '미식'; }
-      else if (it.type === 'transit') { chipClass = 'chip-transit'; chipText = '교통'; }
-      else if (it.type === 'shopping') { chipClass = 'chip-shopping'; chipText = '쇼핑'; }
-
-      let statusLabel = '가기로 결정';
-      if (it.status === 'done') statusLabel = '완료 (확정)';
-      if (it.status === 'skip') statusLabel = '취소/패스';
-
-      const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(it.query || it.name)}`;
-
-      card.innerHTML = `
-        <div class="card-top">
-          <div class="spot-title-area">
-            <span class="chip ${chipClass}">${chipText} · ${it.day}</span>
-            <div class="spot-name">${it.name}</div>
-            <div class="spot-memo">${it.memo}</div>
+        row.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded ${badgeColor}">${badge}</span>
+            <span class="font-medium text-[#1A1D20]">${e.title}</span>
+            <span class="text-[10px] text-[#8B939B]">${e.time}</span>
           </div>
-          <a href="${mapUrl}" target="_blank" rel="noopener" class="icon-btn" title="구글 지도 열기">📍</a>
-        </div>
-        <div class="card-bottom">
-          <div class="cost-input-wrap">
-            <span>¥</span>
-            <input type="number" class="cost-input num" value="${it.cost}" onchange="updateCost('${it.id}', this.value)">
+          <div class="flex items-center gap-2">
+            <span class="font-bold tabular-nums text-dangerFill">-¥${e.amount.toLocaleString()}</span>
+            <button onclick="removeExpense(${e.id})" class="text-[#8B939B] hover:text-dangerFill text-xs px-1">✕</button>
           </div>
-          <button class="status-toggle ${it.status === 'done' ? 'done' : ''}" onclick="toggleStatus('${it.id}')">${statusLabel}</button>
-        </div>
-      `;
-      listEl.appendChild(card);
-    });
-  }
+        `;
+        listContainer.appendChild(row);
+      });
+    }
 
-  function render() {
-    updateDashboard();
-    renderCards();
-  }
+    // Voucher Modal
+    function openVoucherModal(imgUrl) {
+      document.getElementById('modalImg').src = imgUrl;
+      document.getElementById('imageModal').classList.remove('hidden');
+    }
+    function closeVoucherModal() {
+      document.getElementById('imageModal').classList.add('hidden');
+    }
 
-  render();
-</script>
+    // Init
+    renderSchedule();
+    updateBudgetUI();
+  </script>
 </body>
 </html>
