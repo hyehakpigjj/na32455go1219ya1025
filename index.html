@@ -112,10 +112,47 @@
       </div>
     </section>
 
-    <!-- Tab 2: 바우처 보관함 (E-티켓, 예약 캡처) -->
-    <section id="tab-vouchers" class="hidden flex-col gap-3">
-      <div class="text-xs text-[#5B646D] px-1">오프라인에서도 이미지를 터치해 원본 모달로 확대할 수 있습니다.</div>
+    <!-- 호텔 예약 바우처 (PDF 열람) -->
+      <div class="bg-white border border-appBorder rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-sm">코코호텔 나고야 사카에 예약 확인서</span>
+          <span class="text-[11px] bg-budgetTint text-budgetFill font-bold px-2 py-0.5 rounded-full">2박 예약 완료</span>
+        </div>
+        <p class="text-xs text-[#5B646D]">10/23(금) 체크인 ~ 10/25(일) 체크아웃 · 체크인 시 제시</p>
+        <a href="./hotel.pdf" target="_blank" rel="noopener" 
+           class="mt-1 w-full py-2.5 bg-appSunken border border-appBorder rounded-xl text-xs font-bold text-[#1A1D20] flex items-center justify-center gap-1.5 active:scale-98 transition-all">
+          📄 hotel.pdf 바우처 원본 열기 ↗
+        </a>
+      </div>
 
+      <!-- 항공 E-Ticket 카드 (지혜은 / 최정학) -->
+      <div class="bg-white border border-appBorder rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-sm">인천 ↔ 추부 왕복 E-티켓</span>
+          <span class="text-[11px] bg-transitTint text-transitFill font-bold px-2 py-0.5 rounded-full">2인 탑승권</span>
+        </div>
+        <p class="text-xs text-[#5B646D]">출국: 10/23 07:30(ICN) ➔ 09:25(NGO) · 공항 수속용</p>
+        
+        <div class="grid grid-cols-2 gap-2 mt-1">
+          <!-- 지혜은 님 탑승권 -->
+          <div onclick="openVoucherModal('./jee_plane.png')" class="cursor-pointer overflow-hidden rounded-xl border border-appBorder h-36 bg-gray-100 relative group">
+            <img src="./jee_plane.png" class="w-full h-full object-cover group-active:scale-105 transition-all" alt="지혜은 항공권">
+            <div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-white text-[11px] font-bold">
+              <span>✈️ 지혜은 E-티켓</span>
+              <span class="text-[9px] font-normal mt-0.5 opacity-80">터치하여 확대 🔍</span>
+            </div>
+          </div>
+
+          <!-- 최정학 님 탑승권 -->
+          <div onclick="openVoucherModal('./choe_plane.png')" class="cursor-pointer overflow-hidden rounded-xl border border-appBorder h-36 bg-gray-100 relative group">
+            <img src="./choe_plane.png" class="w-full h-full object-cover group-active:scale-105 transition-all" alt="최정학 항공권">
+            <div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-white text-[11px] font-bold">
+              <span>✈️ 최정학 E-티켓</span>
+              <span class="text-[9px] font-normal mt-0.5 opacity-80">터치하여 확대 🔍</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- 기린 맥주 예약증 카드 -->
       <div class="bg-white border border-appBorder rounded-2xl p-4 shadow-sm flex flex-col gap-2">
         <div class="flex justify-between items-center">
