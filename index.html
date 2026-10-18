@@ -374,7 +374,21 @@
       { day: 'DAY2', time: '11:00', title: '우나기 후지타 (사카에 로드숍)', desc: '바삭하게 구운 나고야 전통 히츠마부시', tag: '식사', type: 'food', query: 'Unagi Fujita Nagoya Sakae' },
       { day: 'DAY2', time: '13:30', title: '사카에 패션거리 & 백화점 쇼핑', desc: '라시크/파르코 편집숍, 일본 브랜드 쇼핑', tag: '쇼핑', type: 'etc', query: 'LACHIC Nagoya' },
       { day: 'DAY2', time: '16:00', title: '오스(大須) 상점가 빈티지 탐방', desc: '2nd STREET, 코메효 본점 세컨핸드 쇼핑', tag: '쇼핑', type: 'etc', query: 'Osu Shopping Street Nagoya' },
-      { day: 'DAY2', time: '18:30', title: '니오몬 스시 (오스 골목 노포)', desc: '카운터 판초밥 & 차가운 사케 페어링', tag: '식사', type: 'food', query: 'Niomon Dori Sushi Nagoya' },
+      { 
+        day: 'DAY2', 
+        time: '18:30', 
+        title: '야키니쿠 진 (Japanese Yakiniku JIN)', 
+        desc: '★18:30 예약 완료★ 평점 4.8 (638) · 야키니쿠 전문식당', 
+        tag: '예약', 
+        type: 'food', 
+        query: 'Japanese Yakiniku JIN NAGOYA',
+        reservationInfo: {
+          name: 'Jay Choi',
+          time: '18:30',
+          url: 'https://www.google.com/maps/reserve/bookings/detail?b=xj8TmSApS38',
+          address: '愛知県名古屋市中区栄1-7-13 伏見パークビル 2F'
+        }
+      },
       { day: 'DAY2', time: '21:00', title: '미센 야바초 본점', desc: '야식 - 매콤한 타이완 라멘 & 생맥주', tag: '야식', type: 'food', query: 'Misen Yaba Nagoya' },
       { day: 'DAY2', time: '22:30', title: '돈키호테 사카에점 (24시간)', desc: '★과자/간식 미리 털기★ 면세 카운터 한산한 밤에 완료', tag: '쇼핑', type: 'etc', query: 'Don Quijote Sakae Nagoya' },
 
@@ -512,6 +526,27 @@ function renderSchedule() {
             </a>
           </div>
         `;
+
+        // 1-0. 구글 예약 내역 카드 (예약 링크 + 예약자명)
+        if (item.reservationInfo) {
+          cardHtml += `
+            <div class="border-t border-appBorder/60 pt-2 flex flex-col gap-1.5">
+              <div class="bg-foodTint/50 border border-foodFill/20 p-2.5 rounded-xl flex items-center justify-between text-xs">
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-bold text-[#94401F]">예약자: ${item.reservationInfo.name}</span>
+                    <span class="text-[10px] bg-foodFill text-white font-bold px-1.5 py-0.2 rounded">${item.reservationInfo.time} 확정</span>
+                  </div>
+                  <span class="text-[10px] text-[#5B646D] mt-0.5">${item.reservationInfo.address}</span>
+                </div>
+                <a href="${item.reservationInfo.url}" target="_blank" rel="noopener" 
+                   class="bg-white border border-foodFill/30 text-foodFill font-bold text-[11px] px-2.5 py-1.5 rounded-lg active:scale-95 transition-all shadow-2xs whitespace-nowrap shrink-0">
+                  예약 내역 ↗
+                </a>
+              </div>
+            </div>
+          `;
+        }
 
         // 1-1. 1일차 11:30 기준 Plan A / B 토글 박스
         if (item.planToggle) {
