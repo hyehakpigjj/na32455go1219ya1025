@@ -321,14 +321,18 @@
         day: 'DAY1', 
         time: '12:40', 
         title: '코코호텔 도착 (짐 보관)', 
-        desc: '사카에역 栄(さかえ) 1/2번 출구 도보 3분 · 체크인 전 캐리어 무료 보관', 
+        desc: '사카에역 栄(さかえ) 2번 출구 도보 1분 · 체크인 전 캐리어 무료 보관', 
         tag: '호텔', 
         type: 'etc', 
-        query: 'KOKO HOTEL Nagoya Sakae',
+        query: 'KOKO HOTEL 名古屋栄',
         taxiHelp: {
           to: '호텔 프런트 (체크인 전 짐 맡기기)',
           jp: 'チェックイン前ですが、荷物を預かっていただけますか？',
           read: '체크인 마에데스가, 니모츠오 아즈캇테 이타다케마스카?'
+        },
+        walkingTip: {
+          title: '🚶 사카에역 ➔ 호텔 도보 동선 (약 1분)',
+          content: '사카에역 2번 출구에서 나와 바로 앞 골목으로 우회전하면 도보 1분(약 80m) 거리입니다. 무거운 캐리어가 있다면 8번/Central Park 쪽 엘리베이터 출구를 이용해도 도보 3분 안쪽입니다.'
         }
       },
       { 
@@ -359,6 +363,19 @@
         query: 'キリンビール 名古屋工場',
         transitDetail: '【왕복 셔틀 정보】 갈 때: JR 비와지마역 동구 14:50 탑승 (공장 15:00 도착) / 올 때: 투어 종료 후 공장 앞 16:40 셔틀 탑승 ➔ 비와지마역 16:50 도착.'
       },
+      { 
+        day: 'DAY1', 
+        time: '17:15', 
+        title: '호텔 복귀 & 체크인 (휴식 타임)', 
+        desc: '정식 체크인 후 방 배정 · 세수하고 짐 풀며 40분 꿀휴식', 
+        tag: '체크인', 
+        type: 'etc', 
+        query: 'KOKO HOTEL 名古屋栄',
+        walkingTip: {
+          title: '🚌 기린공장 ➔ 호텔 복귀 동선 (약 25~30분 소요)',
+          content: '공장 앞 16:40 전용 셔틀(10분) ➔ JR 비와지마역 하차(16:50) ➔ JR 1정거장(나고야역) ➔ 노란색 히가시야마선 지하철 환승(2정거장) ➔ 사카에역 2번 출구 도보 1분 도착!'
+        }
+      },
      { 
         day: 'DAY1', 
         time: '19:00', 
@@ -375,6 +392,10 @@
           seat: '테이블석 (席のみ 2명)',
           url: 'https://www.google.com/maps/reserve/bookings/detail?b=L6Q0kUpKMm4',
           rettyUrl: 'https://s.retty.me/kwb1b8wz'
+        },
+        walkingTip: {
+          title: '🚶 호텔 ➔ 무나기 도보 이동 (11~13분 / 18:45 출발 추천)',
+          content: '호텔(니시키 3초메)에서 히사야오도리 공원을 따라 남쪽(사카에 4초메 방면)으로 평지 직진 약 850m 거리입니다. 19:00 정시 입장을 위해 18:45 전후에 출발하시면 여유롭습니다.'
         }
       },
       
@@ -647,6 +668,21 @@ function renderSchedule() {
             <div class="border-t border-appBorder/60 pt-2">
               <div class="text-[11px] bg-appSunken p-2.5 rounded-xl text-[#5B646D] leading-relaxed break-keep">
                 💡 <span class="font-bold text-[#1A1D20]">환승 팁:</span> ${item.transitDetail}
+              </div>
+            </div>
+          `;
+        }
+
+        // 5. 도보/동선 안내 토글 박스
+        if (item.walkingTip) {
+          cardHtml += `
+            <div class="border-t border-appBorder/60 pt-2">
+              <button onclick="document.getElementById('walk-box-${idx}').classList.toggle('hidden')" 
+                      class="text-[11px] font-bold text-transitFill flex items-center gap-1 active:opacity-70">
+                ${item.walkingTip.title} ▾
+              </button>
+              <div id="walk-box-${idx}" class="hidden mt-2 p-2.5 bg-transitTint/50 border border-transitFill/20 rounded-xl text-xs text-[#1A1D20] leading-snug break-keep">
+                ${item.walkingTip.content}
               </div>
             </div>
           `;
