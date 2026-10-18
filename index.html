@@ -445,8 +445,20 @@
           address: '愛知県名古屋市中区栄1-7-13 伏見パークビル 2F'
         }
       },
-      { day: 'DAY2', time: '21:00', title: '미센 야바초 본점', desc: '야식 - 매콤한 타이완 라멘 & 생맥주', tag: '야식', type: 'food', query: 'Misen Yaba Nagoya' },
-      { day: 'DAY2', time: '22:30', title: '돈키호테 사카에점 (24시간)', desc: '★과자/간식 미리 털기★ 면세 카운터 한산한 밤에 완료', tag: '쇼핑', type: 'etc', query: 'Don Quijote Sakae Nagoya' },
+      { 
+        day: 'DAY2', 
+        time: '20:30', 
+        title: '소화 산책 & 사카에 로컬 이자카야', 
+        desc: '야키니쿠 식사 후 히사야오도리 공원 산책 ➔ 니시키 로컬 이자카야 2차 한잔', 
+        tag: '술/이자카야', 
+        type: 'food', 
+        query: 'Sakae Nagoya Izakaya',
+        walkingTip: {
+          title: '🚶 산책 동선 & 이자카야 추천 팁',
+          content: '야키니쿠 진에서 나와 미라이타워 방향으로 공원 야경을 보며 소화 산책(도보 10~15분) 후, 호텔이 있는 니시키 3초메 먹자골목의 아늑한 로컬 야키토리/이자카야에서 나마비루나 사케로 2차를 즐기기 좋습니다.'
+        }
+      },
+      { day: 'DAY2', time: '22:30', title: '돈키호테 사카에점 (24시간)', desc: '★과자/간식 미리 털기★ 호텔 복귀 전 면세 카운터 한산한 밤 쇼핑 완료', tag: '쇼핑', type: 'etc', query: 'Don Quijote Sakae Nagoya' },
 
       // DAY 3 (10/25 일)
       { day: 'DAY3', time: '09:30', title: '체크아웃 & 호텔 짐 보관', desc: 'KOKO HOTEL 프런트에 캐리어 무료 보관 후 출발', tag: '체크아웃', type: 'etc', query: 'KOKO HOTEL 名古屋栄' },
@@ -466,30 +478,34 @@
       },
       { 
         day: 'DAY3', 
-        time: '11:15', 
+        time: '10:45', 
         title: '사카에 복귀 (택시 이동)', 
-        desc: '오스 큰길에서 택시 탑승 (약 5~7분 / 1,000엔 내외)', 
+        desc: '오스 큰길에서 택시 탑승 (약 5~7분 / 1,000엔 내외) ➔ 11:00 라멘 오픈런', 
         tag: '교통', 
         type: 'transit', 
-        query: 'LACHIC Nagoya',
+        query: 'Sakae Nagoya',
         taxiHelp: {
-          to: '사카에 라식 백화점 앞 (오스 ➔ 사카에)',
-          jp: '栄のラシック（LACHIC）前までお願いします。',
-          read: '사카에노 라시쿠 마에 마데 오네가이시마스'
+          to: '사카에역 앞 (오스 ➔ 사카에)',
+          jp: '栄駅前までお願いします。',
+          read: '사카에에키 마에 마데 오네가이시마스'
         }
       },
       { 
         day: 'DAY3', 
-        time: '11:30', 
-        title: '3일차 점심 (후보 A / B 선택)', 
-        desc: '취향에 따라 닭 요리 vs 장어구이 로드숍 선택', 
+        time: '11:00', 
+        title: '3일차 첫 끼: 일본식 정통 라멘 (11:00 오픈)', 
+        desc: '오스 산책 후 복귀하여 깔끔한 조개/간장 라멘 or 진한 돈코츠 라멘', 
         tag: '식사', 
         type: 'food', 
-        query: 'Sakae Nagoya Lunch',
+        query: 'Menya Kiyo Sakae',
         toggleOptions: [
-          { name: '후보 A: 토리긴 본점', menu: '나고야 코친 토종닭 오야코동 & 숯불구이', cost: '¥3,500', query: 'Torigin Honten Nagoya' },
-          { name: '후보 B: 우나기 후지타', menu: '단독 로드숍 정통 히츠마부시 만찬', cost: '¥10,000', query: 'Unagi Fujita Nagoya Sakae' }
-        ]
+          { name: '추천 A: 멘야 키요 (麺屋 聖)', menu: '교토 명물 감칠맛 조개·소유 라멘 (11:00 오픈 / 깔끔한 국물)', cost: '¥950~', query: '麺屋 聖 名古屋栄店' },
+          { name: '추천 B: 이치란 나고야 사카에점', menu: '취향 맞춤 비법소스 돈코츠 라멘 (11:00 오픈 / 1인 칸막이)', cost: '¥1,000~', query: '一蘭 名古屋栄店' }
+        ],
+        walkingTip: {
+          title: '🚶 오스 ➔ 라멘집 이동 팁',
+          content: '오스칸논 산책 후 택시나 지하철로 사카에로 복귀하여 11:00 오픈 시간에 맞춰 입장하면 주말 대기 없이 바로 따끈한 첫 끼 라멘을 드실 수 있습니다.'
+        }
       },
       { day: 'DAY3', time: '12:40', title: '마츠자카야 지하 1층 식품관', desc: '고급 선물 쇼핑 (원조 에비센베, 랑그드샤 등)', tag: '쇼핑', type: 'etc', query: 'Matsuzakaya Nagoya' },
       { day: 'DAY3', time: '13:50', title: '호텔 복귀 & 최종 짐 패킹', desc: '구매한 과자 캐리어에 넣고 픽업 (도보 이동)', tag: '정리', type: 'etc', query: 'KOKO HOTEL 名古屋栄' },
