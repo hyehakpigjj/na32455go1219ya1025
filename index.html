@@ -81,9 +81,9 @@
           <div class="flex flex-col text-xs leading-tight">
             <span class="font-bold text-[#1A1D20]">코코호텔 나고야 사카에</span>
             <span class="text-[11px] text-[#5B646D] mt-0.5">KOKO HOTEL Nagoya Sakae</span>
-            <span class="text-[10px] text-[#8B939B] mt-0.5">愛知県名古屋市中区錦3-4-3</span>
+            <span class="text-[10px] text-[#8B939B] mt-0.5">愛知県名古屋市中区錦3-15-21</span>
           </div>
-          <button onclick="copyToClipboard('KOKO HOTEL Nagoya Sakae\n愛知県名古屋市中区錦3-4-3\n+81-52-961-0055', '호텔 영문/일문 주소가 복사되었습니다!')" 
+          <button onclick="copyToClipboard('KOKO HOTEL Nagoya Sakae\n愛知県名古屋市中区錦3-15-21\n+81-52-961-0082', '호텔 영문/일문 주소가 복사되었습니다!')" 
                   class="bg-white border border-appBorder text-xs font-semibold px-2.5 py-1.5 rounded-lg active:scale-95 transition-all text-[#1A1D20] shadow-2xs whitespace-nowrap">
             복사 📋
           </button>
@@ -356,17 +356,26 @@
         desc: '정식 체크인 후 방 배정 · 세수하고 짐 풀며 40분 꿀휴식', 
         tag: '체크인', 
         type: 'etc', 
-        query: 'KOKO HOTEL Nagoya Sakae',
-        transitDetail: '공장 앞 셔틀 탑승 ➔ 비와지마 枇杷島(びわじま) 하차 ➔ JR 탑승(1정거장 ➔ 나고야 名古屋/なごや) ➔ 지하철 노란선 환승(2정거장 ➔ 사카에 栄/さかえ) ➔ 1/2번 출구 도보 3분 호텔 도착!'
+        query: 'KOKO HOTEL 名古屋栄',
+        transitDetail: '공장 앞 셔틀 탑승 ➔ 비와지마 枇杷島(びわじま) 하차 ➔ JR 탑승(1정거장 ➔ 나고야 名古屋/なごや) ➔ 지하철 노란선 환승(2정거장 ➔ 사카에 栄/さかえ) ➔ 2번 출구 도보 1분 호텔 도착!'
       },
-      { 
+     { 
         day: 'DAY1', 
-        time: '18:30', 
-        title: '사카에 쇼핑 & 야키니쿠 진', 
-        desc: '★예약필요★ 호텔 앞 사카에 거리 구경 ➔ 숯불 와규 갈비, 우설 & 나마비루 저녁',
-        tag: '식사', 
+        time: '19:00', 
+        title: '무나기 (炭焼ひつまぶし鰻 むなぎ)', 
+        desc: '★19:00 예약 완료★ 숯불 장어구이 히츠마부시 만찬 · 테이블석 2인',
+        tag: '예약', 
         type: 'food', 
-        query: 'Yakiniku Jin Sakae Nagoya' 
+        query: '炭焼ひつまぶし鰻 むなぎ',
+        reservationInfo: {
+          name: 'hyeeunji02',
+          time: '19:00',
+          resNumber: '904140721',
+          tel: '052-253-6266',
+          seat: '테이블석 (席のみ 2명)',
+          url: 'https://www.google.com/maps/reserve/bookings/detail?b=L6Q0kUpKMm4',
+          rettyUrl: 'https://s.retty.me/kwb1b8wz'
+        }
       },
       
       // DAY 2 (10/24 토)
@@ -393,7 +402,7 @@
       { day: 'DAY2', time: '22:30', title: '돈키호테 사카에점 (24시간)', desc: '★과자/간식 미리 털기★ 면세 카운터 한산한 밤에 완료', tag: '쇼핑', type: 'etc', query: 'Don Quijote Sakae Nagoya' },
 
       // DAY 3 (10/25 일)
-      { day: 'DAY3', time: '09:30', title: '체크아웃 & 호텔 짐 보관', desc: 'KOKO HOTEL 프런트에 캐리어 무료 보관 후 출발', tag: '체크아웃', type: 'etc', query: 'KOKO HOTEL Nagoya Sakae' },
+      { day: 'DAY3', time: '09:30', title: '체크아웃 & 호텔 짐 보관', desc: 'KOKO HOTEL 프런트에 캐리어 무료 보관 후 출발', tag: '체크아웃', type: 'etc', query: 'KOKO HOTEL 名古屋栄' },
       { 
         day: 'DAY3', 
         time: '10:00', 
@@ -436,7 +445,7 @@
         ]
       },
       { day: 'DAY3', time: '12:40', title: '마츠자카야 지하 1층 식품관', desc: '고급 선물 쇼핑 (원조 에비센베, 랑그드샤 등)', tag: '쇼핑', type: 'etc', query: 'Matsuzakaya Nagoya' },
-      { day: 'DAY3', time: '13:50', title: '호텔 복귀 & 최종 짐 패킹', desc: '구매한 과자 캐리어에 넣고 픽업 (도보 이동)', tag: '정리', type: 'etc', query: 'KOKO HOTEL Nagoya Sakae' },
+      { day: 'DAY3', time: '13:50', title: '호텔 복귀 & 최종 짐 패킹', desc: '구매한 과자 캐리어에 넣고 픽업 (도보 이동)', tag: '정리', type: 'etc', query: 'KOKO HOTEL 名古屋栄' },
       { 
         day: 'DAY3', 
         time: '14:30', 
@@ -527,22 +536,38 @@ function renderSchedule() {
           </div>
         `;
 
-        // 1-0. 구글 예약 내역 카드 (예약 링크 + 예약자명)
+       // 1-0. 예약 내역 카드 (구글 예약 + Retty 상세 정보 완벽 지원)
         if (item.reservationInfo) {
+          const r = item.reservationInfo;
           cardHtml += `
             <div class="border-t border-appBorder/60 pt-2 flex flex-col gap-1.5">
-              <div class="bg-foodTint/50 border border-foodFill/20 p-2.5 rounded-xl flex items-center justify-between text-xs">
-                <div class="flex flex-col">
+              <div class="bg-foodTint/50 border border-foodFill/20 p-2.5 rounded-xl flex flex-col gap-2 text-xs">
+                <div class="flex items-center justify-between">
                   <div class="flex items-center gap-1.5">
-                    <span class="font-bold text-[#94401F]">예약자: ${item.reservationInfo.name}</span>
-                    <span class="text-[10px] bg-foodFill text-white font-bold px-1.5 py-0.2 rounded">${item.reservationInfo.time} 확정</span>
+                    <span class="font-bold text-[#94401F]">${r.name ? '예약: ' + r.name : '예약 완료'}</span>
+                    <span class="text-[10px] bg-foodFill text-white font-bold px-1.5 py-0.5 rounded-md">${r.time} 확정</span>
+                    ${r.seat ? `<span class="text-[10px] text-[#94401F] bg-white border border-foodFill/20 px-1.5 py-0.5 rounded-md font-medium">${r.seat}</span>` : ''}
                   </div>
-                  <span class="text-[10px] text-[#5B646D] mt-0.5">${item.reservationInfo.address}</span>
+                  <a href="${r.url}" target="_blank" rel="noopener" 
+                     class="bg-white border border-foodFill/30 text-foodFill font-bold text-[11px] px-2 py-1 rounded-lg active:scale-95 transition-all shadow-2xs whitespace-nowrap">
+                    예약 내역 ↗
+                  </a>
                 </div>
-                <a href="${item.reservationInfo.url}" target="_blank" rel="noopener" 
-                   class="bg-white border border-foodFill/30 text-foodFill font-bold text-[11px] px-2.5 py-1.5 rounded-lg active:scale-95 transition-all shadow-2xs whitespace-nowrap shrink-0">
-                  예약 내역 ↗
-                </a>
+                
+                ${r.resNumber || r.address || r.tel ? `
+                  <div class="bg-white/90 p-2 rounded-lg border border-foodFill/15 flex flex-col gap-0.5 text-[11px] text-[#5B646D]">
+                    ${r.resNumber ? `<div class="flex justify-between items-center"><span class="font-medium">예약 번호 (Retty):</span> <span class="font-bold text-[#1A1D20] font-mono">${r.resNumber}</span></div>` : ''}
+                    ${r.tel ? `<div class="flex justify-between items-center"><span class="font-medium">매장 전화:</span> <a href="tel:${r.tel}" class="text-foodFill font-bold underline font-mono">${r.tel} 📞</a></div>` : ''}
+                    ${r.address ? `<div class="text-[10px] text-[#8B939B] mt-0.5 truncate">${r.address}</div>` : ''}
+                    ${r.rettyUrl ? `
+                      <div class="border-t border-foodFill/10 pt-1 mt-1 flex justify-end">
+                        <a href="${r.rettyUrl}" target="_blank" rel="noopener" class="text-[10px] font-bold text-foodFill underline">
+                          Retty 변경/취소 페이지 열기 ↗
+                        </a>
+                      </div>
+                    ` : ''}
+                  </div>
+                ` : ''}
               </div>
             </div>
           `;
